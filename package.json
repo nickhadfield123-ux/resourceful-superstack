@@ -1,0 +1,52 @@
+{
+  "name": "resourceful-superstack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@daily-co/daily-js": "0.87.0",
+    "@daily-co/daily-react": "^0.25.1",
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/list": "^6.1.10",
+    "@fullcalendar/react": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10",
+    "@ory/client": "^1.22.27",
+    "@radix-ui/react-label": "^1.0.0",
+    "@radix-ui/react-scroll-area": "^1.2.4",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.0.0",
+    "@supabase/supabase-js": "^2.39.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "dexie": "^4.0.0",
+    "groq-sdk": "^0.3.3",
+    "jotai": "^2.9.0",
+    "jotai-family": "^1.0.2",
+    "lucide-react": "^1.14.0",
+    "mapbox-gl": "^3.4.1",
+    "next": "16.2.10",
+    "ollama": "^0.5.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

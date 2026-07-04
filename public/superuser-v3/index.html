@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resourceful · Superuser</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#f0ede8;font-family:system-ui,-apple-system,sans-serif}
+
+/* ── iPad frame ── */
+.ipad-frame{display:flex;flex-direction:column;width:100vw;height:100vh;background:#fff;overflow:hidden}
+.ipad-topbar{height:48px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;z-index:100}
+.ipad-body{display:flex;flex:1;overflow:hidden;position:relative}
+
+/* ── Left sidebar (white) ── */
+.left-sidebar{width:220px;flex-shrink:0;background:#fff;border-right:.5px solid rgba(0,0,0,.07);display:flex;flex-direction:column;overflow-y:auto;z-index:10}
+.sb-logo{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1a1a1a;padding:14px 14px 10px}
+.sb-logo-mark{width:20px;height:20px;border-radius:50%;background:#ede8ff;border:.5px solid #b8b0f0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#534AB7}
+.sb-sec{font-size:9px;font-weight:500;color:#bbb;text-transform:uppercase;letter-spacing:.07em;padding:8px 14px 3px}
+.sb-item{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;cursor:pointer;transition:background .12s;border-left:2.5px solid transparent;position:relative}
+.sb-item:hover{background:#f5f3ff}
+.sb-item.active{background:#f0eeff;border-left-color:#534AB7}
+.sb-item-l{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
+.sb-item-l i{font-size:13px;color:#888;width:16px;text-align:center}
+.sb-item-l.purple i{color:#534AB7}
+.sb-badge{font-size:10px;color:#bbb}
+.sb-badge.hot{background:#fee2e2;color:#b91c1c;padding:1px 6px;border-radius:8px;font-size:10px}
+.sb-badge.num{background:#ede8ff;color:#534AB7;padding:1px 6px;border-radius:8px;font-size:10px}
+.sb-divider{height:.5px;background:rgba(0,0,0,.06);margin:5px 0}
+.sb-member{display:flex;align-items:center;gap:7px;padding:5px 14px;cursor:pointer;transition:background .12s}
+.sb-member:hover{background:#f5f3ff}
+.sb-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;flex-shrink:0}
+.sb-m-name{font-size:11px;color:#444;font-weight:500}
+.sb-m-sub{font-size:10px;color:#aaa}
+.priority-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-left:auto}
+
+/* ── Dark canvas ── */
+.canvas{flex:1;background:#0d1322;display:flex;flex-direction:column;overflow:hidden;position:relative;min-width:0}
+
+/* ── Canvas top nav pills ── */
+.canvas-top{display:flex;align-items:center;padding:8px 12px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;gap:4px}
+.cpill{font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.38);background:none;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cpill:hover,.cpill.active{border-color:rgba(127,119,221,.5);color:#AFA9EC;background:rgba(127,119,221,.1)}
+.cpill.live{border-color:rgba(29,158,117,.35);color:#5DCAA5}
+.cpill.live.active{border-color:rgba(29,158,117,.6)}
+.cpill.alert{border-color:rgba(239,68,68,.3);color:#f87171}
+
+/* ── Canvas body: content + rizz ── */
+.canvas-body{display:flex;flex:1;overflow:hidden;min-height:0}
+
+/* ── Content panel (slides in from left) ── */
+.content-panel{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.content-panel::-webkit-scrollbar{width:2px}
+.content-panel::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+
+/* ── Right: Rizz column ── */
+.rizz-col{width:300px;flex-shrink:0;display:flex;flex-direction:column;border-left:.5px solid rgba(255,255,255,.06);background:#090f1c;overflow:hidden}
+
+/* ── Cards & UI ── */
+.dark-card{background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 14px}
+.dark-card.hl{border-color:rgba(127,119,221,.2)}
+.dark-card.green{border-color:rgba(29,158,117,.2)}
+.dark-card.alert{border-color:rgba(239,68,68,.2)}
+.card-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.85)}
+.card-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;line-height:1.45}
+.pill{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.pg{background:rgba(29,158,117,.14);color:#5DCAA5;border:.5px solid rgba(29,158,117,.2)}
+.pp{background:rgba(127,119,221,.14);color:#AFA9EC;border:.5px solid rgba(127,119,221,.2)}
+.pr{background:rgba(239,68,68,.12);color:#f87171;border:.5px solid rgba(239,68,68,.2)}
+.row-between{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-mini{background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 10px}
+.stat-val{font-size:18px;font-weight:500;color:rgba(255,255,255,.9)}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,.3);margin-top:1px}
+.action-btn{font-size:10px;padding:4px 10px;border-radius:14px;border:.5px solid rgba(127,119,221,.3);color:#AFA9EC;cursor:pointer;background:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
+.action-btn:hover{background:rgba(127,119,221,.12);border-color:rgba(127,119,221,.5)}
+.action-btn.green{border-color:rgba(29,158,117,.3);color:#5DCAA5}
+.action-btn.green:hover{background:rgba(29,158,117,.1)}
+.section-label{font-size:9px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:6px}
+.progress-bar{height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#534AB7,#2d9e6b)}
+.lrow{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:.5px solid rgba(255,255,255,.04);font-size:11px}
+.lrow:last-child{border:none}
+.tag{font-size:10px;padding:2px 7px;border-radius:8px;background:rgba(127,119,221,.1);border:.5px solid rgba(127,119,221,.18);color:#AFA9EC}
+
+/* ── Member avatar ── */
+.m-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;flex-shrink:0}
+
+/* ── Rizz panel ── */
+.rizz-header{padding:10px 12px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;display:flex;align-items:center;gap:8px}
+.rizz-status-dot{width:6px;height:6px;border-radius:50%;background:#1D9E75;flex-shrink:0}
+.rizz-label{font-size:11px;font-weight:500;color:rgba(127,119,221,.8)}
+.rizz-mode{font-size:10px;color:rgba(255,255,255,.2);margin-left:auto;padding:2px 7px;border-radius:8px;background:rgba(83,74,183,.12);border:.5px solid rgba(127,119,221,.2)}
+.rizz-msgs{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.rizz-msgs::-webkit-scrollbar{width:2px}
+.rizz-msgs::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15)}
+.bubble{background:#151e30;border:.5px solid rgba(127,119,221,.14);border-radius:10px;border-bottom-left-radius:3px;padding:9px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.75);max-width:100%}
+.bubble.typing{color:rgba(255,255,255,.3);font-style:italic}
+.user-row{display:flex;justify-content:flex-end}
+.user-bubble{background:#3C3489;border-radius:10px;border-bottom-right-radius:3px;padding:9px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.92);max-width:90%}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.chip{font-size:11px;padding:5px 10px;border-radius:18px;border:.5px solid rgba(127,119,221,.28);color:#AFA9EC;background:rgba(127,119,221,.08);cursor:pointer;transition:all .2s}
+.chip:hover{background:rgba(127,119,221,.2);border-color:rgba(127,119,221,.5)}
+.rizz-input-area{flex-shrink:0;border-top:.5px solid rgba(255,255,255,.06);padding:8px 10px}
+.rizz-ibar{display:flex;align-items:center;gap:5px}
+.rizz-input{flex:1;background:#151e30;border:.5px solid rgba(255,255,255,.07);border-radius:18px;padding:7px 12px;font-size:11px;color:rgba(255,255,255,.8);outline:none;font-family:inherit}
+.rizz-input::placeholder{color:rgba(255,255,255,.18)}
+.rizz-input:focus{border-color:rgba(127,119,221,.4)}
+.send-btn{width:28px;height:28px;border-radius:50%;background:#3C3489;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#CECBF6;font-size:12px;transition:background .15s}
+.send-btn:hover{background:#534AB7}
+
+/* ── Context editor ── */
+.ctx-field{width:100%;background:#0d1322;border:.5px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 10px;font-size:11px;color:rgba(255,255,255,.7);outline:none;font-family:inherit;resize:vertical}
+.ctx-field:focus{border-color:rgba(127,119,221,.4)}
+.ctx-field::placeholder{color:rgba(255,255,255,.18)}
+.save-indicator{font-size:10px;color:#5DCAA5;opacity:0;transition:opacity .3s}
+.save-indicator.show{opacity:1}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.fade-up{animation:fadeUp .25s ease-out}
+.blink{animation:pulse 2s infinite}
+
+/* ── Member detail overlay ── */
+.member-overlay{position:absolute;inset:0;background:rgba(9,15,28,.95);z-index:20;display:none;flex-direction:column;overflow:hidden}
+.member-overlay.open{display:flex;animation:fadeUp .2s ease-out}
+.mo-header{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:.5px solid rgba(255,255,255,.07);flex-shrink:0}
+.mo-back{font-size:10px;color:rgba(127,119,221,.6);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;display:flex;align-items:center;gap:3px}
+.mo-back:hover{color:#AFA9EC;background:rgba(127,119,221,.1)}
+.mo-body{flex:1;overflow-y:auto;padding:16px}
+.mo-body::-webkit-scrollbar{width:2px}
+.mo-body::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15)}
+.thread-msg{padding:8px 0;border-bottom:.5px solid rgba(255,255,255,.04)}
+.thread-msg:last-child{border:none}
+.thread-who{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(127,119,221,.4);margin-bottom:3px}
+.thread-who.you{color:rgba(255,255,255,.2)}
+.thread-text{font-size:11px;color:rgba(255,255,255,.6);line-height:1.55}
+</style>
+</head>
+<body>
+
+<div class="ipad-frame">
+
+  <!-- TOP BAR -->
+  <header class="ipad-topbar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <svg width="28" height="16" viewBox="0 0 28 16"><path d="M7 8C7 5.8 8.8 4 11 4C13.2 4 14.8 5.5 16 8C17.2 10.5 18.8 12 21 12C23.2 12 25 10.2 25 8C25 5.8 23.2 4 21 4C18.8 4 17.2 5.5 16 8C14.8 10.5 13.2 12 11 12C8.8 12 7 10.2 7 8Z" fill="none" stroke="url(#fg)" stroke-width="2.5"/><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6c42c2"/><stop offset="100%" stop-color="#2d9e6b"/></linearGradient></defs></svg>
+      <span style="font-size:15px;font-weight:500;background:linear-gradient(to right,#6c42c2,#2d9e6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Resourceful</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="font-size:11px;color:#aaa">Nick Hadfield</div>
+      <div style="font-size:10px;padding:2px 8px;border-radius:8px;background:#ede8ff;color:#534AB7;font-weight:500">Superuser</div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#1D9E75" class="blink"></div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="ipad-body">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="left-sidebar">
+      <div class="sb-logo"><div class="sb-logo-mark">R</div>Superuser</div>
+
+      <div class="sb-sec">Command</div>
+      <div class="sb-item active" id="nav-ops" onclick="switchTab('ops')">
+        <div class="sb-item-l purple"><i class="ti ti-layout-dashboard"></i>Ops centre</div>
+        <span class="sb-badge hot">2</span>
+      </div>
+      <div class="sb-item" id="nav-members" onclick="switchTab('members')">
+        <div class="sb-item-l"><i class="ti ti-users"></i>Members</div>
+        <span class="sb-badge num">9</span>
+      </div>
+      <div class="sb-item" id="nav-platform" onclick="switchTab('platform')">
+        <div class="sb-item-l"><i class="ti ti-layout"></i>Platform</div>
+      </div>
+      <div class="sb-item" id="nav-context" onclick="switchTab('context')">
+        <div class="sb-item-l"><i class="ti ti-brain"></i>Rizz context</div>
+      </div>
+
+      <div class="sb-divider"></div>
+      <div class="sb-sec">Member view</div>
+      <div class="sb-item" id="nav-watch" onclick="switchTab('watch')">
+        <div class="sb-item-l"><i class="ti ti-player-play"></i>Watch</div>
+        <span class="sb-badge" style="width:6px;height:6px;border-radius:50%;background:#1D9E75;display:inline-block"></span>
+      </div>
+      <div class="sb-item" id="nav-calls" onclick="switchTab('calls')">
+        <div class="sb-item-l"><i class="ti ti-calendar"></i>Calls</div>
+        <span class="sb-badge num">3</span>
+      </div>
+      <div class="sb-item" id="nav-bounties" onclick="switchTab('bounties')">
+        <div class="sb-item-l"><i class="ti ti-bolt"></i>Bounties</div>
+        <span class="sb-badge num">6</span>
+      </div>
+      <div class="sb-item" id="nav-network" onclick="switchTab('network')">
+        <div class="sb-item-l"><i class="ti ti-share"></i>Network</div>
+      </div>
+
+      <div class="sb-divider"></div>
+      <div class="sb-sec">Priority members</div>
+      <div class="sb-member" onclick="openMember('giles')">
+        <div class="sb-av" style="background:#EEEDFE;color:#534AB7">GC</div>
+        <div style="flex:1;min-width:0"><div class="sb-m-name">Giles Custerson</div><div class="sb-m-sub">FCA · governance</div></div>
+        <div class="priority-dot" style="background:#ef4444"></div>
+      </div>
+      <div class="sb-member" onclick="openMember('jason')">
+        <div class="sb-av" style="background:#EAF3DE;color:#3B6D11">JS</div>
+        <div style="flex:1;min-width:0"><div class="sb-m-name">Jason Shellman</div><div class="sb-m-sub">SelfWorx</div></div>
+        <div class="priority-dot" style="background:#f59e0b"></div>
+      </div>
+      <div class="sb-member" onclick="openMember('jordan')">
+        <div class="sb-av" style="background:#E0F2FE;color:#0369a1">JO</div>
+        <div style="flex:1;min-width:0"><div class="sb-m-name">Jordan</div><div class="sb-m-sub">Builder · active</div></div>
+        <div class="priority-dot" style="background:#1D9E75"></div>
+      </div>
+    </div>
+
+    <!-- DARK CANVAS -->
+    <div class="canvas">
+
+      <!-- CANVAS NAV PILLS -->
+      <div class="canvas-top">
+        <button class="cpill active alert" id="pill-ops" onclick="switchTab('ops')"><i class="ti ti-circle-filled" style="font-size:6px;vertical-align:1px"></i> 2 actions needed</button>
+        <button class="cpill" id="pill-members" onclick="switchTab('members')">9 members</button>
+        <button class="cpill" id="pill-platform" onclick="switchTab('platform')">Platform</button>
+        <button class="cpill" id="pill-context" onclick="switchTab('context')">Rizz context</button>
+        <button class="cpill live" id="pill-watch" onclick="switchTab('watch')"><i class="ti ti-circle-filled" style="font-size:6px;vertical-align:1px"></i> Live</button>
+        <button class="cpill" id="pill-calls" onclick="switchTab('calls')">3 calls</button>
+        <button class="cpill" id="pill-bounties" onclick="switchTab('bounties')">6 bounties</button>
+      </div>
+
+      <!-- CANVAS BODY -->
+      <div class="canvas-body">
+
+        <!-- CONTENT PANEL -->
+        <div class="content-panel" id="content-panel">
+          <!-- injected by JS -->
+        </div>
+
+        <!-- RIZZ COLUMN -->
+        <div class="rizz-col">
+          <div class="rizz-header">
+            <div class="rizz-status-dot"></div>
+            <span class="rizz-label">Rizz</span>
+            <span class="rizz-mode">Superuser mode</span>
+          </div>
+          <div class="rizz-msgs" id="rizz-msgs">
+            <div class="bubble fade-up">
+              Nick — good to have you here. Two things need your attention before Friday: the /api/chat route is still broken, and Giles is waiting on your move in the ARIA thread.
+              <div class="chips">
+                <button class="chip" onclick="sendChip('Fix /api/chat now')">Fix /api/chat</button>
+                <button class="chip" onclick="sendChip('What\'s the Giles situation?')">Giles thread</button>
+                <button class="chip" onclick="sendChip('Friday prep — what do I need?')">Friday prep</button>
+              </div>
+            </div>
+          </div>
+          <div class="rizz-input-area">
+            <div class="rizz-ibar">
+              <input class="rizz-input" id="rizz-input" placeholder="Talk to Rizz..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+              <button class="send-btn" onclick="sendMsg()"><i class="ti ti-arrow-up"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MEMBER OVERLAY -->
+      <div class="member-overlay" id="member-overlay">
+        <div class="mo-header">
+          <button class="mo-back" onclick="closeMember()"><i class="ti ti-arrow-left" style="font-size:10px"></i> Back</button>
+          <div class="m-av" id="mo-av" style="background:#EEEDFE;color:#534AB7">GC</div>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:rgba(255,255,255,.9)" id="mo-name">Giles Custerson</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.35)" id="mo-sub">FCA · governance</div>
+          </div>
+          <div id="mo-status-pill" style="margin-left:auto"></div>
+        </div>
+        <div class="mo-body" id="mo-body"></div>
+      </div>
+
+    </div><!-- /canvas -->
+
+  </div><!-- /ipad-body -->
+</div><!-- /ipad-frame -->
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+
+const MEMBERS = {
+  giles: {
+    name:'Giles Custerson', sub:'Custerson Consulting · FCA governance',
+    av:'GC', avc:'#EEEDFE', avt:'#534AB7', progress:65, priority:'hot',
+    status:'Active · 65% onboarded',
+    possibility:'Deep FCA and governance expertise — 30h of prior context. Strong fit for advisory or founding investor role. Lead with ARIA regulatory strategy, not the raise. Reference Malvern cluster as Arena proof of concept.',
+    rizzContext:'He responds well to governance framing. Avoid equity talk early. Patient, methodical thinker — give him space to reach conclusions.',
+    thread:[
+      {from:'rizz',text:'Nick has shared some initial context about ARIA and the governance angle. He\'d like to explore what an advisory relationship might look like with you.'},
+      {from:'them',text:'That\'s interesting — the regulatory structuring piece is exactly where I\'ve been focused. What\'s the timeline looking like?'},
+      {from:'rizz',text:'Nick is working through the next stage of the ARIA proposal. Open to a formal advisory conversation next week?'},
+    ]
+  },
+  jason: {
+    name:'Jason Shellman', sub:'SelfWorx · Human design & gene keys',
+    av:'JS', avc:'#EAF3DE', avt:'#3B6D11', progress:45, priority:'warm',
+    status:'Onboarding · 45%',
+    possibility:'Building SelfWorx — tools to help people understand themselves via human design, gene keys, ikigai. Strong alignment with the Resourceful mission. Could be a showcase partner.',
+    rizzContext:'Deeply reflective. Responds well to values-based framing. Lead with the mission before the product.',
+    thread:[
+      {from:'rizz',text:'Welcome Jason — Nick has been looking forward to this conversation. He\'d love to hear more about SelfWorx.'},
+      {from:'them',text:'It\'s all about helping people find their design. The gene keys layer is what makes it different.'},
+    ]
+  },
+  jordan: {
+    name:'Jordan', sub:'Builder · Platform dev',
+    av:'JO', avc:'#E0F2FE', avt:'#0369a1', progress:80, priority:'active',
+    status:'Active · 80%',
+    possibility:'Core builder on the platform. Active in dev work. Key person for the technical layer.',
+    rizzContext:'Practical, get-it-done energy. Communicate with clarity and concrete tasks.',
+    thread:[]
+  }
+};
+
+const TABS = {
+  ops: renderOps,
+  members: renderMembers,
+  platform: renderPlatform,
+  context: renderContext,
+  watch: renderWatch,
+  calls: renderCalls,
+  bounties: renderBounties,
+  network: renderNetwork
+};
+
+let currentTab = 'ops';
+let rizzHistory = [{role:'assistant',content:"Nick — good to have you here. Two things need your attention before Friday: the /api/chat route is still broken, and Giles is waiting on your move in the ARIA thread."}];
+
+// ── TAB SWITCHING ────────────────────────────────────────────────────────
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.cpill').forEach(el => el.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+tab);
+  const pillEl = document.getElementById('pill-'+tab);
+  if(navEl) navEl.classList.add('active');
+  if(pillEl) pillEl.classList.add('active');
+  const panel = document.getElementById('content-panel');
+  panel.innerHTML = '';
+  (TABS[tab] || renderOps)();
+}
+
+// ── RENDER FUNCTIONS ─────────────────────────────────────────────────────
+
+function renderOps() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">This week's priorities</div>
+
+    <div class="dark-card alert">
+      <div class="row-between">
+        <div>
+          <div class="card-title">⚡ Fix /api/chat + /api/tts routes</div>
+          <div class="card-sub">Rizz needs to reply properly before Friday's inner circle call. Check Groq API key, model string, and response parsing.</div>
+        </div>
+        <span class="pill pr">Blocking</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button class="action-btn" onclick="askRizz('Walk me through fixing /api/chat step by step')">Get fix steps</button>
+        <button class="action-btn" onclick="askRizz('What might be wrong with /api/tts?')">Debug TTS</button>
+      </div>
+    </div>
+
+    <div class="dark-card alert">
+      <div class="row-between">
+        <div>
+          <div class="card-title">🔗 Deploy /join/[token] to Vercel</div>
+          <div class="card-sub">Personalised invite links are blocked until this route is live. Copy from local to onboarding-launch-v2.vercel.app.</div>
+        </div>
+        <span class="pill pr">Blocking</span>
+      </div>
+      <div style="margin-top:8px">
+        <button class="action-btn" onclick="askRizz('What do I need to do to deploy /join/[token] to Vercel?')">Deployment steps</button>
+      </div>
+    </div>
+
+    <div class="dark-card hl">
+      <div class="row-between">
+        <div>
+          <div class="card-title">💬 Giles thread — your turn</div>
+          <div class="card-sub">He's asked about the ARIA timeline. He's ready to talk formally about advisory. Lead with governance strategy.</div>
+        </div>
+        <span class="pill pp">Your move</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button class="action-btn" onclick="openMember('giles')">Open thread</button>
+        <button class="action-btn" onclick="askRizz('Draft a message to Giles about next steps on ARIA advisory')">Draft message</button>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:4px">Key dates</div>
+    <div class="grid2">
+      <div class="stat-mini">
+        <div class="stat-val">Fri</div>
+        <div class="stat-lbl">Inner circle call · first on-platform</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-val">Tue</div>
+        <div class="stat-lbl">Ops call · 3 confirmed</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-val">Thu</div>
+        <div class="stat-lbl">Presentation · 4 watching, 1 confirmed</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-val">9</div>
+        <div class="stat-lbl">Members invited · 4 actively onboarding</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:4px">NexFlow status</div>
+    <div class="dark-card">
+      <div class="row-between">
+        <div>
+          <div class="card-title">Engineering ops framework</div>
+          <div class="card-sub">Branch protection, CI/CD, contributor onboarding scripts, 30-60-90 day plan ready. Scale readiness: D → needs implementation.</div>
+        </div>
+        <span class="pill pp">Ready to ship</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button class="action-btn" onclick="askRizz('What should I prioritise from the NexFlow framework this week?')">Prioritise</button>
+        <button class="action-btn" onclick="askRizz('Walk me through the NexFlow branch structure')">Branch setup</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderMembers() {
+  const p = document.getElementById('content-panel');
+  const allMembers = [
+    {key:'giles',...MEMBERS.giles},
+    {key:'jason',...MEMBERS.jason},
+    {key:'jordan',...MEMBERS.jordan},
+    {key:'dulfrey', name:'Dulfrey', sub:'Inner circle', av:'DF', avc:'#FDF2F8', avt:'#9D174D', progress:30, priority:'warm', status:'Onboarding'},
+    {key:'luis', name:'Luis', sub:'Inner circle', av:'LU', avc:'#FEF3C7', avt:'#92400E', progress:25, priority:'warm', status:'Onboarding'},
+    {key:'alex', name:'Alex', sub:'Inner circle', av:'AL', avc:'#F0FDF4', avt:'#166534', progress:20, priority:'warm', status:'Invited'},
+    {key:'joe', name:'Joe', sub:'Inner circle', av:'JE', avc:'#EFF6FF', avt:'#1E40AF', progress:15, priority:'watch', status:'Invited'},
+    {key:'janeth', name:'Janeth', sub:'Inner circle', av:'JN', avc:'#FFF7ED', avt:'#9A3412', progress:10, priority:'watch', status:'Invited'},
+    {key:'sprout', name:'Sprout', sub:'Inner circle', av:'SP', avc:'#F5F3FF', avt:'#5B21B6', progress:5, priority:'watch', status:'Invited'},
+  ];
+  const priorityColor = {hot:'#ef4444',warm:'#f59e0b',active:'#1D9E75',watch:'#6b7280'};
+
+  p.innerHTML = `
+    <div class="grid2">
+      <div class="stat-mini"><div class="stat-val">9</div><div class="stat-lbl">Invited</div></div>
+      <div class="stat-mini"><div class="stat-val">4</div><div class="stat-lbl">Actively onboarding</div></div>
+      <div class="stat-mini"><div class="stat-val">2</div><div class="stat-lbl">Calls this week</div></div>
+      <div class="stat-mini"><div class="stat-val">1</div><div class="stat-lbl">Action needed</div></div>
+    </div>
+    <div class="section-label" style="margin-top:4px">All members</div>
+    ${allMembers.map(m => `
+      <div class="dark-card" style="cursor:pointer" onclick="openMember('${m.key}')">
+        <div class="row-between" style="align-items:center">
+          <div style="display:flex;align-items:center;gap:10px;flex:1">
+            <div class="m-av" style="background:${m.avc};color:${m.avt}">${m.av}</div>
+            <div style="flex:1;min-width:0">
+              <div class="card-title">${m.name}</div>
+              <div class="card-sub" style="margin-top:0">${m.sub}</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:${m.progress}%"></div></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+            <span class="pill ${m.priority==='hot'?'pr':m.priority==='active'?'pg':'pp'}">${m.status}</span>
+            <div style="display:flex;gap:4px">
+              <button class="action-btn" style="font-size:9px;padding:2px 7px" onclick="event.stopPropagation();askRizz('What should I do next with ${m.name}?')">Ask Rizz</button>
+              <button class="action-btn" style="font-size:9px;padding:2px 7px" onclick="event.stopPropagation();openMember('${m.key}')">Thread <i class="ti ti-arrow-right" style="font-size:9px"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('')}
+    <div class="dark-card" style="border-style:dashed;cursor:pointer" onclick="askRizz('Help me draft a new invite')">
+      <div style="display:flex;align-items:center;gap:8px">
+        <i class="ti ti-user-plus" style="color:rgba(127,119,221,.5);font-size:16px"></i>
+        <div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4)">Invite someone new</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.2)">Ask Rizz to help draft the invite context</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPlatform() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">Platform status</div>
+    ${[
+      {name:'Onboarding v4',url:'/onboardingv4.html',status:'live',note:'iPad frame + Rizz. Main member entry point.'},
+      {name:'Video room',url:'/v2/room/[id]',status:'live',note:'Daily.co integrated. Rizz replies being fixed.'},
+      {name:'Join/invite',url:'/join/[token]',status:'blocked',note:'Not yet deployed to Vercel. Blocking personalised invites.'},
+      {name:'Hub pages',url:'/cockpit/[hub]',status:'pending',note:'Not yet deployed. Sacred Valley, Malvern, London, Morzine, Lembongan.'},
+      {name:'Rizz chat',url:'/cockpit/chat',status:'local',note:'Local only. API routes patchy.'},
+      {name:'Superuser v3',url:'/v3/superuser',status:'building',note:'This page — active.'},
+    ].map(pg => `
+      <div class="dark-card">
+        <div class="row-between">
+          <div>
+            <div class="card-title">${pg.name}</div>
+            <div style="font-size:10px;color:rgba(127,119,221,.5);margin:1px 0 3px;font-family:monospace">${pg.url}</div>
+            <div class="card-sub">${pg.note}</div>
+          </div>
+          <span class="pill ${pg.status==='live'?'pg':pg.status==='blocked'?'pr':pg.status==='local'?'pp':''}">
+            ${pg.status==='live'?'Live':pg.status==='blocked'?'Blocked':pg.status==='local'?'Local':pg.status==='building'?'Active':'Pending'}
+          </span>
+        </div>
+      </div>
+    `).join('')}
+
+    <div class="section-label" style="margin-top:4px">Tech stack</div>
+    <div class="dark-card">
+      ${[
+        ['Frontend','Next.js 16 · Tailwind · TypeScript'],
+        ['Database','Supabase (PostgreSQL)'],
+        ['AI (Rizz)','Groq · llama-3.3-70b-versatile'],
+        ['Video','Daily.co · @daily-co/daily-react'],
+        ['Deployment','Vercel · onboarding-launch-v2.vercel.app'],
+        ['Repo','github.com/nickhadfield123-ux/onboarding-launch'],
+        ['State','Jotai · Pino (server logging)'],
+      ].map(([k,v]) => `
+        <div class="lrow">
+          <span style="color:rgba(255,255,255,.4)">${k}</span>
+          <span style="color:rgba(255,255,255,.65);font-size:10px">${v}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="section-label" style="margin-top:4px">Integrations to wire in</div>
+    ${[
+      {name:'Paperclip',desc:'AI coding agent — wire into Rizz for automated task execution',status:'todo'},
+      {name:'Kilo',desc:'Context-aware coding — keep Rizz informed of codebase state',status:'todo'},
+      {name:'NexFlow',desc:'Engineering ops framework — branch protection, CI/CD, contributor scripts',status:'ready'},
+      {name:'Groq TTS',desc:'Rizz voice — currently falling back to Web Speech API',status:'broken'},
+    ].map(i => `
+      <div class="dark-card">
+        <div class="row-between">
+          <div>
+            <div class="card-title">${i.name}</div>
+            <div class="card-sub">${i.desc}</div>
+          </div>
+          <span class="pill ${i.status==='ready'?'pg':i.status==='broken'?'pr':'pp'}">${i.status==='ready'?'Ready':i.status==='broken'?'Broken':'To do'}</span>
+        </div>
+        <div style="margin-top:6px">
+          <button class="action-btn" onclick="askRizz('How do I wire ${i.name} into Resourceful?')">Ask Rizz how</button>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function renderContext() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">Rizz system context</div>
+    <div class="dark-card hl">
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px">This is the context Rizz loads for all conversations. Edit and save — takes effect immediately.</div>
+      <div class="section-label">Platform KB (always loaded)</div>
+      <textarea class="ctx-field" rows="6" id="ctx-platform" placeholder="What Rizz knows about the platform, hubs, mission...">Resourceful is an AI-powered coordination network. Three layers: intelligent software (Next.js platform), high-trust human network (200+ members), real-world hubs (Sacred Valley, Lembongan, Morzine, London, Malvern). One line: We own it all together and use economies of scale to build a more abundant life.</textarea>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+        <button class="action-btn green" onclick="saveCtx('platform')"><i class="ti ti-check" style="font-size:9px"></i> Save</button>
+        <span class="save-indicator" id="save-platform">Saved ✓</span>
+      </div>
+    </div>
+
+    <div class="dark-card hl">
+      <div class="section-label">Nick's superuser context</div>
+      <textarea class="ctx-field" rows="8" id="ctx-nick" placeholder="What Rizz knows about Nick as superuser...">Nick Hadfield is the founder of Resourceful. He built the entire platform. Currently in Sacred Valley, Peru.
+
+Immediate priorities: fix /api/chat and /api/tts routes, deploy /join/[token], get Rizz context-aware before Friday's inner circle call.
+
+He thinks in systems. Communicates directly. Doesn't need orienting — needs a co-founder thinking partner. Skip the platform tour, go straight to operational detail.
+
+Key relationships: Giles Custerson (hot — ARIA advisory, lead with governance not equity), Jason Shellman (SelfWorx), Jordan (active builder).</textarea>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+        <button class="action-btn green" onclick="saveCtx('nick')"><i class="ti ti-check" style="font-size:9px"></i> Save</button>
+        <span class="save-indicator" id="save-nick">Saved ✓</span>
+      </div>
+    </div>
+
+    <div class="dark-card">
+      <div class="section-label">Rizz system prompt (live)</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px">Current model: llama-3.3-70b-versatile via Groq · ~2,847 base tokens</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4)">Context layers active:
+        <span class="tag" style="margin:0 3px">Platform KB</span>
+        <span class="tag" style="margin:0 3px">Superuser layer</span>
+        <span class="tag" style="margin:0 3px">Member context</span>
+      </div>
+      <div style="margin-top:8px">
+        <button class="action-btn" onclick="askRizz('What context do you currently have about Resourceful?')">Test Rizz context</button>
+      </div>
+    </div>
+
+    <div class="dark-card">
+      <div class="section-label">Section pins (per-section Rizz hints)</div>
+      ${['watch','calls','bounties','network','membership','my-rizz'].map(s => `
+        <div style="margin-bottom:8px">
+          <div style="font-size:10px;color:rgba(127,119,221,.4);margin-bottom:3px;text-transform:uppercase;letter-spacing:.06em">${s}</div>
+          <textarea class="ctx-field" rows="2" placeholder="What Rizz says when someone navigates to ${s}..."></textarea>
+        </div>
+      `).join('')}
+      <button class="action-btn green" style="margin-top:4px"><i class="ti ti-check" style="font-size:9px"></i> Save all pins</button>
+    </div>
+  `;
+}
+
+function renderWatch() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">Live now</div>
+    <div class="dark-card green">
+      <div class="row-between">
+        <div>
+          <div class="card-title">ARIA Arena kickoff</div>
+          <div class="card-sub">Nick Hadfield · Live · 7 watching</div>
+        </div>
+        <span class="pill pg">Live</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button class="action-btn green">Join live</button>
+        <button class="action-btn">Add to hub</button>
+        <button class="action-btn" onclick="askRizz('Pin the ARIA Arena kickoff to the top of Watch for all members')">Pin for members</button>
+      </div>
+    </div>
+    <div class="section-label" style="margin-top:4px">Library</div>
+    ${[
+      {title:'Platform overview',sub:'12 min · 142 views · New',featured:true},
+      {title:'NFT raise strategy',sub:'22 min · 89 views'},
+      {title:'Bounty system explained',sub:'11 min · 178 views'},
+    ].map(v => `
+      <div class="dark-card ${v.featured?'hl':''}">
+        <div class="row-between">
+          <div>
+            <div class="card-title">${v.title}</div>
+            <div class="card-sub">${v.sub}</div>
+          </div>
+          ${v.featured?'<span class="pill pp">Featured</span>':''}
+        </div>
+        <div style="margin-top:6px;display:flex;gap:5px">
+          <button class="action-btn">Watch</button>
+          <button class="action-btn">Edit</button>
+          ${!v.featured?'<button class="action-btn">Feature</button>':''}
+        </div>
+      </div>
+    `).join('')}
+    <div class="dark-card" style="border-style:dashed">
+      <div style="font-size:12px;color:rgba(255,255,255,.3)"><i class="ti ti-video-plus" style="margin-right:6px"></i>Add media · start recording</div>
+    </div>
+  `;
+}
+
+function renderCalls() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">This week</div>
+    ${[
+      {title:'Ops & tasks review',when:'Tue · 11am Peru',conf:3,watch:2,status:'Open'},
+      {title:'Platform demo & presentations',when:'Thu · 11am Peru',conf:1,watch:4,status:'Needs nudge'},
+      {title:'Inner circle call',when:'Fri · TBC',conf:0,watch:9,status:'Priority'},
+    ].map(c => `
+      <div class="dark-card ${c.status==='Priority'?'alert':c.status==='Needs nudge'?'hl':''}">
+        <div class="row-between">
+          <div>
+            <div class="card-title">${c.title}</div>
+            <div class="card-sub">${c.when} · ${c.conf} confirmed · ${c.watch} watching</div>
+          </div>
+          <span class="pill ${c.status==='Priority'?'pr':c.status==='Needs nudge'?'pp':'pg'}">${c.status}</span>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:5px">
+          <button class="action-btn">Manage</button>
+          ${c.status==='Needs nudge'?'<button class="action-btn" onclick="askRizz(\'Draft a nudge message for the Thursday demo call watchers\')">Nudge watchers</button>':''}
+          ${c.status==='Priority'?'<button class="action-btn" onclick="askRizz(\'What do I need to prepare for Friday\'s inner circle call?\')">Prep with Rizz</button>':''}
+        </div>
+      </div>
+    `).join('')}
+    <div class="section-label" style="margin-top:4px">1:1 availability</div>
+    ${[
+      {name:'Giles Custerson',when:'Mon · 2pm UK',role:'Strategy session'},
+      {name:'Open slot',when:'Wed · TBC',role:'45 min available'},
+    ].map(s => `
+      <div class="dark-card">
+        <div class="row-between">
+          <div><div class="card-title">${s.name}</div><div class="card-sub">${s.when} · ${s.role}</div></div>
+          <div style="display:flex;gap:5px">
+            ${s.name==='Open slot'?'<button class="action-btn">Assign</button>':'<button class="action-btn">Prep</button>'}
+          </div>
+        </div>
+      </div>
+    `).join('')}
+    <div class="dark-card" style="border-style:dashed">
+      <div style="font-size:12px;color:rgba(255,255,255,.3)"><i class="ti ti-calendar-plus" style="margin-right:6px"></i>Schedule new call</div>
+    </div>
+  `;
+}
+
+function renderBounties() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">Open bounties</div>
+    ${[
+      {title:'Frontend dev — dashboard components',pay:'750 RSF',apps:2,days:5},
+      {title:'Coordination map — Sacred Valley',pay:'800 RSF',apps:1,days:5},
+      {title:'Intelligence layer prototype',pay:'1,200 RSF',apps:0,days:12},
+      {title:'Regenerative finance overview',pay:'500 RSF',apps:0,days:3},
+      {title:'Community call notes',pay:'200 RSF',apps:1,days:0},
+      {title:'Impact report writing',pay:'600 RSF',apps:0,days:8},
+    ].map(b => `
+      <div class="dark-card">
+        <div class="row-between">
+          <div>
+            <div class="card-title">${b.title}</div>
+            <div class="card-sub">${b.pay} · ${b.apps} application${b.apps!==1?'s':''} · ${b.days>0?b.days+' days left':'closing soon'}</div>
+          </div>
+          <span class="pill ${b.apps>0?'pp':''}">Open</span>
+        </div>
+        <div style="margin-top:6px;display:flex;gap:5px">
+          <button class="action-btn">Manage</button>
+          ${b.apps>0?'<button class="action-btn green">Review apps</button>':''}
+        </div>
+      </div>
+    `).join('')}
+    <div class="dark-card" style="border-style:dashed">
+      <div style="font-size:12px;color:rgba(255,255,255,.3)"><i class="ti ti-bolt" style="margin-right:6px"></i>Post new bounty</div>
+    </div>
+  `;
+}
+
+function renderNetwork() {
+  const p = document.getElementById('content-panel');
+  p.innerHTML = `
+    <div class="section-label">Member network</div>
+    ${Object.entries(MEMBERS).map(([key,m]) => `
+      <div class="dark-card" style="cursor:pointer" onclick="openMember('${key}')">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="m-av" style="background:${m.avc};color:${m.avt}">${m.av}</div>
+          <div style="flex:1">
+            <div class="card-title">${m.name}</div>
+            <div class="card-sub">${m.sub}</div>
+          </div>
+          <button class="action-btn" onclick="event.stopPropagation();askRizz('Draft an introduction message for ${m.name}')">Introduce</button>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+// ── MEMBER OVERLAY ──────────────────────────────────────────────────────
+
+function openMember(key) {
+  const m = MEMBERS[key];
+  if(!m) return;
+  document.getElementById('mo-av').textContent = m.av;
+  document.getElementById('mo-av').style.background = m.avc;
+  document.getElementById('mo-av').style.color = m.avt;
+  document.getElementById('mo-name').textContent = m.name;
+  document.getElementById('mo-sub').textContent = m.sub;
+  document.getElementById('mo-status-pill').innerHTML = `<span class="pill ${m.priority==='hot'?'pr':m.priority==='active'?'pg':'pp'}">${m.status}</span>`;
+
+  const body = document.getElementById('mo-body');
+  body.innerHTML = `
+    <div style="margin-bottom:16px">
+      <div class="section-label">Onboarding progress</div>
+      <div class="progress-bar" style="height:4px;margin-bottom:4px"><div class="progress-fill" style="width:${m.progress}%"></div></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">${m.progress}% complete</div>
+    </div>
+
+    <div class="dark-card hl" style="margin-bottom:10px">
+      <div class="section-label">Possibility you see</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6">${m.possibility}</div>
+    </div>
+
+    <div class="dark-card" style="margin-bottom:10px;border-color:rgba(239,68,68,.1);background:rgba(239,68,68,.04)">
+      <div class="section-label">Rizz context (private — guides how Rizz talks to them)</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;font-style:italic">${m.rizzContext}</div>
+      <div style="margin-top:8px">
+        <textarea class="ctx-field" rows="3" placeholder="Update Rizz context for ${m.name}...">${m.rizzContext}</textarea>
+        <button class="action-btn green" style="margin-top:6px" onclick="saveCtx('member-${key}')">Save context</button>
+        <span class="save-indicator" id="save-member-${key}">Saved ✓</span>
+      </div>
+    </div>
+
+    <div class="dark-card">
+      <div class="section-label">Async thread</div>
+      ${m.thread.length===0
+        ? '<div style="font-size:12px;color:rgba(255,255,255,.3)">No messages yet. Start the conversation.</div>'
+        : m.thread.map(msg => `
+          <div class="thread-msg">
+            <div class="thread-who ${msg.from==='them'?'':'you'}">${msg.from==='them'?m.name:'Rizz (via Nick)'}</div>
+            <div class="thread-text">${msg.text}</div>
+          </div>
+        `).join('')
+      }
+      <div style="margin-top:10px;display:flex;gap:6px">
+        <button class="action-btn" onclick="askRizz('Draft a response to ${m.name} in their thread')">Ask Rizz to draft</button>
+        <button class="action-btn green">Send message</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('member-overlay').classList.add('open');
+}
+
+function closeMember() {
+  document.getElementById('member-overlay').classList.remove('open');
+}
+
+// ── RIZZ CHAT ────────────────────────────────────────────────────────────
+
+function askRizz(msg) {
+  document.getElementById('rizz-input').value = msg;
+  sendMsg();
+}
+
+function sendChip(msg) {
+  document.getElementById('rizz-input').value = msg;
+  sendMsg();
+}
+
+function addMsg(text, role) {
+  const container = document.getElementById('rizz-msgs');
+  const el = document.createElement('div');
+  if(role==='user') {
+    el.className='user-row fade-up';
+    el.innerHTML=`<div class="user-bubble">${text}</div>`;
+  } else {
+    el.className='fade-up';
+    el.innerHTML=`<div class="bubble">${text}</div>`;
+  }
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+  return el;
+}
+
+async function sendMsg() {
+  const input = document.getElementById('rizz-input');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+
+  addMsg(text, 'user');
+  rizzHistory.push({role:'user', content:text});
+
+  const typingEl = addMsg('Rizz is thinking…', 'assistant');
+  typingEl.querySelector('.bubble').classList.add('typing');
+
+  try {
+    const res = await fetch('/api/chat?invite_id=nick-hadfield-superuser-2026', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        message:text,
+        history:rizzHistory.slice(-12),
+        section:currentTab,
+        queryText:text
+      })
+    });
+    const data = await res.json();
+    typingEl.remove();
+    const reply = data.content || data.message || "I'm here. What do you need?";
+    addMsg(reply, 'assistant');
+    rizzHistory.push({role:'assistant', content:reply});
+  } catch(e) {
+    typingEl.remove();
+    // Fallback responses for when API is down — relevant to context
+    const fallbacks = {
+      ops:["The /api/chat route being down is obviously the most ironic problem right now. Check your GROQ_API_KEY env var on Vercel and make sure the model string is 'llama-3.3-70b-versatile'.","Priority: get the API route working first. Everything else depends on it."],
+      members:["Giles is your highest priority relationship this week. The ARIA governance angle is where he's most interested.","Jason is building something genuinely interesting with SelfWorx. Worth a proper 1:1 soon."],
+      default:["I'm here — the API route needs fixing but the platform context is all loaded.","On it. What else?"]
+    };
+    const pool = fallbacks[currentTab] || fallbacks.default;
+    const reply = pool[Math.floor(Math.random()*pool.length)];
+    addMsg(reply, 'assistant');
+    rizzHistory.push({role:'assistant', content:reply});
+  }
+}
+
+// ── CONTEXT SAVE ─────────────────────────────────────────────────────────
+
+function saveCtx(id) {
+  const indicator = document.getElementById('save-'+id);
+  if(!indicator) return;
+  // In production: POST to Supabase hub_kb or platform_invites
+  indicator.classList.add('show');
+  setTimeout(()=>indicator.classList.remove('show'), 2000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+
+switchTab('ops');
+</script>
+</body>
+</html>

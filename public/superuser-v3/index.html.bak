@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resourceful · Superuser</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#f0ede8;font-family:system-ui,-apple-system,sans-serif}
+
+/* ── iPad frame ── */
+.ipad-frame{display:flex;flex-direction:column;width:100vw;height:100vh;background:#fff;overflow:hidden}
+.ipad-topbar{height:48px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;z-index:100}
+.ipad-body{display:flex;flex:1;overflow:hidden;position:relative}
+
+/* ── Left sidebar (white) ── */
+.left-sidebar{width:220px;flex-shrink:0;background:#fff;border-right:.5px solid rgba(0,0,0,.07);display:flex;flex-direction:column;overflow-y:auto;z-index:10}
+.sb-logo{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1a1a1a;padding:14px 14px 10px}
+.sb-logo-mark{width:20px;height:20px;border-radius:50%;background:#ede8ff;border:.5px solid #b8b0f0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#534AB7}
+.sb-sec{font-size:9px;font-weight:500;color:#bbb;text-transform:uppercase;letter-spacing:.07em;padding:8px 14px 3px}
+.sb-item{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;cursor:pointer;pointer;transition:background .12s;border-left:2.5px solid transparent;position:relative}
+.sb-item:hover{background:#f5f3ff}
+.sb-item.active{background:#f0eeff;border-left-color:#534AB7}
+.sb-item-l{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
+.sb-item-l i{font-size:13px;color:#888;width:16px;text-align:center}
+.sb-badge{font-size:10px;color:#bbb}
+.sb-badge.hot{background:#fee2e2;color:#b91c1c;padding:1px 6px;border-radius:8px;font-size:10px}
+.sb-badge.num{background:#ede8ff;color:#534AB7;padding:1px 6px;border-radius:8px;font-size:10px}
+.sb-divider{height:.5px;background:rgba(0,0,0,.06);margin:5px 0}
+.sb-member{display:flex;align-items:center;gap:7px;padding:5px 14px;cursor:pointer;transition:background .12s}
+.sb-member:hover{background:#f5f3ff}
+.sb-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;flex-shrink:0}
+.sb-m-name{font-size:11px;color:#444;font-weight:500}
+.sb-m-sub{font-size:10px;color:#aaa}
+.priority-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-left:auto}
+
+/* ── Dark canvas ── */
+.canvas{flex:1;background:#0d1322;display:flex;flex-direction:column;overflow:hidden;position:relative;min-width:0}
+
+/* ── Canvas top nav pills ── */
+.canvas-top{display:flex;align-items:center;padding:8px 12px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;gap:4px}
+.cpill{font-size:10px;padding:3px 10px;border-radius:20px;border:.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.38);background:none;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cpill:hover,.cpill.active{border-color:rgba(127,119,221,.5);color:#AFA9EC;background:rgba(127,119,221,.1)}
+.cpill.live{border-color:rgba(29,158,117,.35);color:#5DCAA5}
+.cpill.live.active{border-color:rgba(29,158,117,.6)}
+.cpill.alert{border-color:rgba(239,68,68,.3);color:#f87171}
+
+/* ── Canvas body: content + rizz ── */
+.canvas-body{display:flex;flex:1;overflow:hidden;min-height:0}
+
+/* ── Content panel (slides in from left) ── */
+.content-panel{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.content-panel::-webkit-scrollbar{width:2px}
+.content-panel::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+
+/* ── Right: Rizz column ── */
+.rizz-col{width:300px;flex-shrink:0;display:flex;flex-direction:column;border-left:.5px solid rgba(255,255,255,.06);background:#090f1c;overflow:hidden}
+
+/* ── Cards & UI ── */
+.dark-card{background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 14px}
+.dark-card.hl{border-color:rgba(127,119,221,.2)}
+.dark-card.green{border-color:rgba(29,158,117,.2)}
+.dark-card.alert{border-color:rgba(239,68,68: }
+] 1a  }

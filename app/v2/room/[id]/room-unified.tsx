@@ -1,0 +1,163 @@
+"use client"
+
+import * as React from "react"
+import { useParams, useRouter } from "next/navigation"
+import PlatformFrame from '@/components/shell/PlatformFrame'
+import { RizzPanel } from '@/components/shell'
+import { PreCallPage } from "@/components/cockpit/PreCallPage"
+import { PostCallPage } from "@/components/cockpit/PostCallPage"
+import CallTVClient from "../../../call-tv/[roomId]/CallTVClient"
+import { Meeting } from "@/lib/meetings/types"
+import { getHubUrl } from "@/lib/utils"
+import { getSupabaseClient } from '@/lib/supabase'
+import { SyncButton } from '@/components/ui/SyncButton'
+
+export default function RoomV2Page() {
+  const params = useParams()
+  const router = useRouter()
+  const roomId = params.id as string
+  
+  const [isLinkCopied, setIsLinkCopied] = React.useState(false)
+  const [callHasStarted, setCallHasStarted] = React.useState(false)
+  const [callHasEnded, setCallHasEnded] = React.useState(false)
+  const [callDuration, setCallDuration] = React.useState(120)
+  const [leftSidebarExpanded, setLeftSidebarExpanded] = React.useState(true)
+  const [rizzMessage, setRizzMessage] = React.useState<string>('')
+  const [rizzProgress, setRizzProgress] = React.useState<string>('')
+  const [userId, setUserId] = React.useState<string | null>(null)
+  
+  // Verify user session using Supabase auth
+  React.useEffect(() => {
+    const checkUser = async () => {
+      const supabase = getSupabaseClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      console.log('API/Page Auth Check - User ID:', user?.id)
+      setUserId(user?.id || null)
+      
+      if (!user) {
+        window.location.href = '/onboarding'
+      }
+    }
+    checkUser()
+  }, [])
+  
+  // Reset sidebar expanded state when transitioning between states
+  React.useEffect(() => {
+    if (!callHasStarted || callHasEnded) {
+      setLeftSidebarExpanded(true)
+    } else {
+      setLeftSidebarExpanded(false)
+    }
+  }, [callHasStarted, callHasEnded])
+  
+  const mockMeeting = React.useMemo<Meeting>(() => ({
+    id: roomId,
+    title: "Welcome to Resourceful",
+    description: "This is your video call room",
+    meeting_type: "team-sync",
+    start_time: new Date(),
+    end_time: new Date(Date.now() + 3600000),
+    timezone: "UTC",
+    all_day: false,
+    status: "scheduled",
+    created_by: userId || "1",
+    recording_enabled: true,
+    visibility: "private",
+    created_at: new Date(),
+    updated_at: new Date()
+  }), [roomId, userId])
+
+  const handleJoinCall = () => {
+    console.log('✅ 🎯 JOIN CALL BUTTON CLICKED!')
+    console.log('   Before: callHasStarted =', callHasStarted)
+    setCallHasStarted(true)
+    console.log('   After: callHasStarted = true')
+    console.log('   ✅ CallTVClient SHOULD NOW BE MOUNTED')
+  }
+
+  const handleInviteUsers = (userIds: string[]) => {
+    console.log('Invite users:', userIds)
+  }
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(typeof window !== 'undefined' ? window.location.href : '')
+    setIsLinkCopied(true)
+    setTimeout(() => setIsLinkCopied(false), 2000)
+  }
+
+  const handleCallEnded = React.useCallback(
+    (duration: number, participantCount: number) => {
+      setCallDuration(duration)
+      setCallHasEnded(true)
+    },
+    []
+  )
+
+  console.log('🔄 RoomV2Page rendering | callHasStarted =', callHasStarted)
+  console.log('   ➡️ Rendering:', callHasStarted ? 'CALLTVCLIENT' : 'PRECALLPAGE')
+
+  return (
+    <PlatformFrame
+      leftSidebar={{
+        content: <div className="p-6" />,
+        expanded: leftSidebarExpanded,
+        onToggle: () => setLeftSidebarExpanded(prev => !prev)
+      }}
+rightSidebar={{
+         content: (
+           <div className="h-full flex flex-col">
+             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+               <div className="flex items-center gap-2">
+                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-green-500 flex items-center justify-center">
+                   <span className="text-white font-semibold text-sm">R</span>
+                 </div>
+                 <span className="font-medium text-sm text-gray-900">Rizz</span>
+               </div>
+               <SyncButton onSync={async () => {
+                 console.log('Sync with Kilo triggered for room:', roomId)
+                 // Add actual sync logic here
+               }} />
+             </div>
+             <RizzPanel incomingMessage={rizzMessage} inProgressMessage={rizzProgress} roomId={roomId} />
+           </div>
+         ),
+         defaultExpanded: true
+       }}
+    >
+      {callHasEnded ? (
+        <div className="p-6 h-full overflow-auto bg-slate-900">
+          <PostCallPage 
+            meeting={mockMeeting}
+            duration={callDuration}
+            status="aborted"
+            onBackToHub={() => {
+              const hubUrl = getHubUrl()
+              window.location.href = hubUrl
+            }}
+          />
+        </div>
+      ) : !callHasStarted ? (
+        <div className="p-6 h-full overflow-auto bg-slate-900">
+          <PreCallPage 
+            meeting={mockMeeting}
+            roomUrl={typeof window !== 'undefined' ? window.location.href : ''}
+            onJoinCall={handleJoinCall}
+            onInviteUsers={handleInviteUsers}
+            onCopyLink={handleCopyLink}
+            isLinkCopied={isLinkCopied}
+          />
+        </div>
+      ) : (
+        <>
+          {console.log('✅ 🔥 CALLTVCLIENT IS ACTUALLY BEING RENDERED RIGHT NOW!')}
+<CallTVClient
+             roomId={roomId}
+             onCallEnded={handleCallEnded}
+             onRizzMessage={setRizzMessage}
+             onRizzProgress={setRizzProgress}
+           />
+        </>
+      )}
+    </PlatformFrame>
+  )
+}

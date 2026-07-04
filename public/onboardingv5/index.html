@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rizz · Resourceful · Onboarding</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#f0ede8;font-family:system-ui,-apple-system,sans-serif}
+
+.ipad-frame{display:flex;flex-direction:column;width:100vw;height:100vh;background:#fff;overflow:hidden}
+.ipad-topbar{height:48px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;z-index:100}
+.ipad-body{display:flex;flex:1;overflow:hidden;position:relative}
+.ipad-right-frame{position:absolute;right:0;top:48px;bottom:0;width:300px;background:#fff;border-left:1px solid #e5e7eb;display:flex;flex-direction:column;z-index:10;transition:width .35s,opacity .35s}
+.ipad-right-frame.collapsed{width:0;min-width:0;opacity:0}
+.ipad-center{flex:1;overflow:hidden}
+
+@keyframes rp{0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(1)}50%{opacity:.85;transform:translate(-50%,-50%) scale(1.04)}}
+@keyframes gi{0%,100%{filter:drop-shadow(0 0 10px rgba(108,66,194,.35))}50%{filter:drop-shadow(0 0 22px rgba(108,66,194,.65)) drop-shadow(0 0 14px rgba(45,158,107,.3))}}
+@keyframes gi-conjure{0%{filter:drop-shadow(0 0 8px rgba(108,66,194,.3))}30%{filter:drop-shadow(0 0 38px rgba(108,66,194,1)) drop-shadow(0 0 28px rgba(45,158,107,.8))}100%{filter:drop-shadow(0 0 10px rgba(108,66,194,.35))}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes bob-conjure{0%{transform:translateY(0)}30%{transform:translateY(-14px) scale(1.06)}100%{transform:translateY(0)}}
+@keyframes antb{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(10deg) translateY(-2px)}}
+@keyframes wave{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(10deg) translateY(-2px)}}
+@keyframes wave-fast{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(22deg) translateY(-5px)}}
+@keyframes ebl{0%,88%,100%{transform:scaleY(1)}94%{transform:scaleY(.06)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes earnedPulse{0%,100%{box-shadow:inset 2px 0 0 #534AB7}40%{box-shadow:inset 2px 0 0 #534AB7,0 0 0 5px rgba(83,74,183,.18)}}
+@keyframes docPulse{0%{background:rgba(83,74,183,.08)}50%{background:rgba(83,74,183,.18)}100%{background:rgba(83,74,183,.08)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+
+.app{display:flex;width:100%;height:100%;overflow:hidden}
+
+/* White left sidebar */
+.sidebar{position:absolute;left:0;top:0;bottom:0;width:260px;background:#fff;border-right:.5px solid rgba(0,0,0,.07);display:flex;flex-direction:column;overflow-y:auto;z-index:10}
+.sb-logo{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1a1a1a;padding:14px 14px 12px}
+.sb-logo-mark{width:20px;height:20px;border-radius:50%;background:#ede8ff;border:.5px solid #b8b0f0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#534AB7}
+.sb-sec{font-size:9px;font-weight:500;color:#bbb;text-transform:uppercase;letter-spacing:.07em;padding:8px 14px 4px}
+.sb-item{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;cursor:pointer;transition:background .12s;border-left:2px solid transparent}
+.sb-item:hover{background:#f5f3ff}
+.sb-item.active-link{background:#f0eeff;border-left-color:#534AB7}
+.sb-item.earned{background:#f0eeff;border-left-color:#534AB7;animation:earnedPulse 1.8s ease-out}
+.sb-item-l{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
+.sb-item-l i{font-size:14px;color:#888;width:16px;text-align:center}
+.sb-item-l.purple i{color:#534AB7}
+.sb-badge{font-size:10px;color:#bbb}
+.sb-badge.dot-green{width:7px;height:7px;border-radius:50%;background:#1D9E75;display:inline-block;animation:pulse 2s infinite}
+.sb-badge.num{background:#ede8ff;color:#534AB7;padding:1px 6px;border-radius:8px;font-size:10px}
+.sb-divider{height:.5px;background:rgba(0,0,0,.06);margin:5px 0}
+.step-item{display:flex;align-items:center;gap:8px;padding:6px 14px}
+.step-dot{width:16px;height:16px;border-radius:50%;border:.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:#bbb}
+.step-dot.done{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.step-dot.active{background:#534AB7;border-color:#534AB7;color:#fff}
+.step-text{color:#999;font-size:11px}
+.step-text.done{text-decoration:line-through}
+.step-text.active{color:#333;font-weight:500}
+.sb-person{display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer}
+.sb-person:hover{background:#f5f3ff}
+.sb-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0}
+.sb-person-name{font-size:11px;color:#444}
+.sb-person-sub{font-size:10px;color:#bbb}
+
+/* YOUR ROOMS sidebar section */
+.sb-room-item{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;cursor:pointer;transition:background .12s;border-left:2px solid transparent}
+.sb-room-item:hover{background:#f5f3ff}
+.sb-room-item.active-link{background:#f0eeff;border-left-color:#534AB7}
+.sb-room-item.room-locked{opacity:.45;cursor:default}
+.sb-room-item.room-locked:hover{background:none}
+.sb-room-l{display:flex;align-items:center;gap:7px;font-size:11px;color:#444;min-width:0}
+.sb-room-l i{font-size:12px;color:#888;width:14px;text-align:center;flex-shrink:0}
+.sb-room-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-room-status{font-size:9px;color:#bbb;flex-shrink:0;display:flex;align-items:center;gap:3px}
+.sb-room-status.active{color:#1D9E75}
+.sb-room-status.locked{color:#ddd}
+.sb-add-room{display:flex;align-items:center;gap:6px;padding:5px 14px 8px;cursor:pointer;font-size:11px;color:#534AB7;opacity:.7;transition:opacity .15s}
+.sb-add-room:hover{opacity:1}
+.sb-add-room i{font-size:12px}
+
+/* Dark canvas */
+.canvas{margin-left:260px;flex:1;background:#0d1322;display:flex;flex-direction:column;overflow:hidden;position:relative;max-width:calc(100vw - 560px)}
+.canvas-top{display:flex;align-items:center;padding:9px 13px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;gap:4px}
+.cpill{font-size:10px;padding:3px 9px;border-radius:20px;border:.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.38);background:none;cursor:pointer;transition:all .2s}
+.cpill:hover,.cpill.active-pill{border-color:rgba(127,119,221,.5);color:#AFA9EC;background:rgba(127,119,221,.1)}
+.cpill.live{border-color:rgba(29,158,117,.35);color:#5DCAA5}
+.cpill.live.active-pill{border-color:rgba(29,158,117,.6)}
+
+.canvas-body{display:flex;flex:1;overflow:hidden;min-height:0}
+
+/* Normal section panel (left) */
+.section-panel{width:0;flex-shrink:0;overflow:hidden;background:#090f1c;border-right:.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;transition:width .75s cubic-bezier(.4,0,.15,1)}
+.section-panel.open{width:60%}
+
+/* TOPIC ROOM — full canvas takeover */
+.topic-room-overlay{position:absolute;inset:0;background:#090f1c;z-index:20;display:none;flex-direction:column;animation:fadeUp .3s ease-out}
+.topic-room-overlay.open{display:flex}
+.tr-topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:.5px solid rgba(255,255,255,.07);flex-shrink:0;background:#0a101e}
+.tr-back{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(127,119,221,.7);cursor:pointer;padding:4px 8px;border-radius:6px;border:.5px solid rgba(127,119,221,.2);background:none;transition:all .15s}
+.tr-back:hover{color:#AFA9EC;border-color:rgba(127,119,221,.5);background:rgba(127,119,221,.08)}
+.tr-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.85)}
+.tr-title i{font-size:13px;color:#AFA9EC}
+.tr-stage-pill{font-size:10px;padding:2px 8px;border-radius:10px;border:.5px solid rgba(127,119,221,.25);color:#AFA9EC;background:rgba(127,119,221,.1)}
+.tr-actions{display:flex;align-items:center;gap:6px}
+.tr-action-btn{font-size:10px;padding:3px 9px;border-radius:12px;border:.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:none;cursor:pointer;transition:all .15s}
+.tr-action-btn:hover{border-color:rgba(127,119,221,.4);color:#AFA9EC;background:rgba(127,119,221,.08)}
+
+/* Three columns inside topic room */
+.tr-body{display:flex;flex:1;overflow:hidden;min-height:0}
+
+/* LEFT — Rizz conversation */
+.tr-chat{width:38%;flex-shrink:0;display:flex;flex-direction:column;border-right:.5px solid rgba(255,255,255,.06);background:#0d1322}
+.tr-chat-scroll{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.tr-chat-scroll::-webkit-scrollbar{width:2px}
+.tr-chat-scroll::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+.tr-rizz-opener{background:rgba(83,74,183,.1);border:.5px solid rgba(127,119,221,.2);border-radius:10px;border-bottom-left-radius:3px;padding:10px 12px;font-size:12px;line-height:1.65;color:rgba(255,255,255,.75);animation:fadeUp .35s ease-out}
+.tr-msg-user{display:flex;justify-content:flex-end;animation:fadeUp .2s ease-out}
+.tr-msg-user-bubble{background:#3C3489;border-radius:10px;border-bottom-right-radius:3px;padding:8px 11px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.9);max-width:85%}
+.tr-msg-rizz{background:#151e30;border:.5px solid rgba(127,119,221,.12);border-radius:10px;border-bottom-left-radius:3px;padding:8px 11px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.75);animation:fadeUp .25s ease-out}
+.tr-typing{font-size:11px;color:rgba(255,255,255,.28);font-style:italic;padding:6px 0}
+
+/* CENTRE — Living document */
+.tr-doc{flex:1;display:flex;flex-direction:column;border-right:.5px solid rgba(255,255,255,.06);background:#0b1118}
+.tr-doc-scroll{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:0}
+.tr-doc-scroll::-webkit-scrollbar{width:2px}
+.tr-doc-scroll::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+.tr-doc-header{padding:0 0 10px;border-bottom:.5px solid rgba(255,255,255,.06);margin-bottom:10px}
+.tr-doc-title{font-size:14px;font-weight:500;color:rgba(255,255,255,.88);margin-bottom:3px}
+.tr-doc-meta{font-size:10px;color:rgba(255,255,255,.2);display:flex;align-items:center;gap:6px}
+.tr-doc-sec{margin-bottom:14px}
+.tr-doc-sec-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:rgba(127,119,221,.5);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.tr-doc-sec-label i{font-size:10px}
+.tr-doc-content{font-size:11px;line-height:1.65;color:rgba(255,255,255,.45);font-style:italic;min-height:32px;padding:7px 10px;border-radius:7px;border:.5px dashed rgba(255,255,255,.07);transition:all .4s}
+.tr-doc-content.has-content{color:rgba(255,255,255,.7);font-style:normal;border-color:rgba(127,119,221,.18);background:rgba(83,74,183,.06);animation:docPulse 1.5s ease-out}
+.tr-doc-content.editable:focus{outline:none;border-color:rgba(127,119,221,.4);background:rgba(83,74,183,.1);color:rgba(255,255,255,.85)}
+.tr-doc-badge{font-size:9px;padding:2px 6px;border-radius:8px;margin-left:auto;cursor:pointer;transition:all .15s}
+.tr-doc-badge.private{background:rgba(255,255,255,.05);color:rgba(255,255,255,.25);border:.5px solid rgba(255,255,255,.08)}
+.tr-doc-badge.private:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+
+/* RIGHT — Status panel */
+.tr-status{width:200px;flex-shrink:0;display:flex;flex-direction:column;background:#0a101e;padding:12px}
+.tr-status-sec{margin-bottom:14px}
+.tr-status-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.2);margin-bottom:7px}
+.tr-participant{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.tr-p-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:500;flex-shrink:0}
+.tr-p-name{font-size:11px;color:rgba(255,255,255,.65)}
+.tr-p-status{font-size:9px;margin-left:auto;flex-shrink:0}
+.tr-p-status.active{color:#5DCAA5}
+.tr-p-status.pending{color:rgba(255,255,255,.2)}
+.tr-stage-list{display:flex;flex-direction:column;gap:4px}
+.tr-stage-row{display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,.28)}
+.tr-stage-row.current{color:#AFA9EC}
+.tr-stage-row.done{color:rgba(29,158,117,.6)}
+.tr-stage-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.1);flex-shrink:0}
+.tr-stage-dot.current{background:#534AB7}
+.tr-stage-dot.done{background:#1D9E75}
+.tr-linked{display:flex;flex-direction:column;gap:4px}
+.tr-link-item{font-size:10px;color:rgba(127,119,221,.5);cursor:pointer;padding:3px 6px;border-radius:5px;transition:all .15s;border:.5px solid rgba(127,119,221,.1)}
+.tr-link-item:hover{color:#AFA9EC;border-color:rgba(127,119,221,.3);background:rgba(127,119,221,.06)}
+.tr-next-action{background:rgba(83,74,183,.1);border:.5px solid rgba(127,119,221,.2);border-radius:7px;padding:8px 9px}
+.tr-next-label{font-size:9px;color:rgba(127,119,221,.5);margin-bottom:3px;text-transform:uppercase;letter-spacing:.07em}
+.tr-next-text{font-size:10px;color:rgba(255,255,255,.6);line-height:1.5}
+
+/* Topic room input */
+.tr-input-area{flex-shrink:0;border-top:.5px solid rgba(255,255,255,.06);padding:0 12px}
+.tr-ibar{display:flex;align-items:center;gap:6px;padding:7px 0 9px}
+
+/* Add room dialog */
+.add-room-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:30;display:none;align-items:center;justify-content:center}
+.add-room-overlay.open{display:flex}
+.add-room-dialog{background:#111827;border:.5px solid rgba(127,119,221,.3);border-radius:12px;width:340px;padding:18px;animation:fadeUp .25s ease-out}
+.add-room-title{font-size:13px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:4px}
+.add-room-sub{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:14px;line-height:1.5}
+.add-room-input{width:100%;background:#0d1322;border:.5px solid rgba(127,119,221,.25);border-radius:8px;padding:9px 12px;font-size:12px;color:rgba(255,255,255,.8);outline:none;font-family:inherit;margin-bottom:10px}
+.add-room-input::placeholder{color:rgba(255,255,255,.2)}
+.add-room-input:focus{border-color:rgba(127,119,221,.5)}
+.add-room-btns{display:flex;gap:7px;justify-content:flex-end}
+.add-room-cancel{font-size:11px;padding:6px 14px;border-radius:8px;border:.5px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);background:none;cursor:pointer}
+.add-room-cancel:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
+.add-room-submit{font-size:11px;padding:6px 14px;border-radius:8px;border:.5px solid rgba(127,119,221,.4);color:#AFA9EC;background:rgba(127,119,221,.12);cursor:pointer}
+.add-room-submit:hover{background:rgba(127,119,221,.22);border-color:rgba(127,119,221,.6)}
+
+/* Existing styles preserved */
+.sp-nav{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:.5px solid rgba(255,255,255,.07);flex-shrink:0}
+.sp-title{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:rgba(255,255,255,.82)}
+.sp-title i{font-size:13px;color:#AFA9EC}
+.sp-back{font-size:10px;color:rgba(255,255,255,.25);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;transition:color .15s}
+.sp-back:hover{color:rgba(255,255,255,.6)}
+.sp-scroll{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.sp-scroll::-webkit-scrollbar{width:2px}
+.sp-scroll::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+.section-log{flex-shrink:0;border-top:.5px solid rgba(255,255,255,.06);padding:8px 12px;display:flex;flex-direction:column;gap:5px;max-height:160px;overflow-y:auto}
+.section-log::-webkit-scrollbar{width:2px}
+.section-log::-webkit-scrollbar-thumb{background:rgba(127,119,221,.15);border-radius:2px}
+.sc-log-entry{background:rgba(83,74,183,.1);border:.5px solid rgba(127,119,221,.18);border-radius:8px;padding:7px 10px;font-size:11px;color:rgba(255,255,255,.6);line-height:1.5;display:flex;gap:7px;animation:fadeUp .25s ease-out}
+.sc-log-entry i{font-size:11px;color:#7F77DD;flex-shrink:0;margin-top:1px}
+
+.rizz-col{display:flex;flex-direction:column;flex:1;min-width:200px;overflow:hidden;background:#0d1322}
+.cpill-back{border-color:rgba(127,119,221,.5)!important;color:#AFA9EC!important;background:rgba(127,119,221,.12)!important;font-weight:500}
+.cpill-back:hover{background:rgba(127,119,221,.22)!important}
+.back-to-rizz{display:none;cursor:pointer;padding:10px 12px;border-bottom:.5px solid rgba(127,119,221,.2);background:linear-gradient(135deg,rgba(83,74,183,.18),rgba(45,158,107,.08));flex-shrink:0;transition:background .2s}
+.back-to-rizz:hover{background:linear-gradient(135deg,rgba(83,74,183,.28),rgba(45,158,107,.14))}
+.back-to-rizz.show{display:block}
+.back-rizz-inner{display:flex;align-items:center;gap:10px}
+.back-rizz-avatar{width:32px;height:32px;border-radius:50%;background:rgba(83,74,183,.25);border:1px solid rgba(127,119,221,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:bob 2.8s ease-in-out infinite}
+.back-rizz-text{display:flex;flex-direction:column;gap:1px}
+.back-rizz-label{font-size:13px;font-weight:600;color:#CECBF6;letter-spacing:.01em}
+.back-rizz-sub{font-size:10px;color:rgba(127,119,221,.55)}
+.hint-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:8px 12px 4px;flex-shrink:0;transition:opacity .3s;max-width:750px;margin:0 auto 16px auto}
+.hint{font-size:12px;font-weight:500;padding:6px 14px;border-radius:18px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);background:rgba(127,119,221,.07);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;letter-spacing:.01em}
+.hint i{font-size:12px}
+.hint:hover{border-color:rgba(127,119,221,.5);color:#AFA9EC;background:rgba(127,119,221,.15)}
+.hint.active{border-color:rgba(127,119,221,.7);color:#CECBF6;background:rgba(127,119,221,.22);font-weight:600;box-shadow:0 0 0 1px rgba(127,119,221,.2)}
+#message-area{flex:1;overflow-y:auto;padding:6px 14px 6px;display:flex;flex-direction:column;min-height:0;position:relative}
+.message-area::-webkit-scrollbar{width:2px}
+.message-area::-webkit-scrollbar-thumb{background:rgba(127,119,221,.2);border-radius:2px}
+.rizz-anchor{flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:14px 0 6px;position:relative;transition:all 0.6s cubic-bezier(0.4,0,0.15,1);max-width:400px;margin:0 auto}
+.rizz-anchor.compact{flex-direction:row;gap:9px;padding:7px 10px;background:rgba(255,255,255,.03);border-radius:8px;border:.5px solid rgba(127,119,221,.12);margin:6px 10px 2px;cursor:pointer;align-items:center}
+.rizz-anchor.compact:hover{background:rgba(127,119,221,.08);border-color:rgba(127,119,221,.3)}
+.rizz-anchor.compact .rizz-rings{display:none}
+.rizz-anchor.compact .rizz-lbl,.rizz-anchor.compact .rizz-st{display:none}
+.rizz-anchor.compact .rizz-avatar-svg{width:36px;height:42px}
+.rizz-anchor.compact .rizz-compact-info{display:flex;flex-direction:column;gap:1px}
+.rizz-compact-info{display:none}
+.rizz-compact-name{font-size:11px;font-weight:500;color:rgba(127,119,221,.9)}
+.rizz-compact-st{font-size:10px;color:rgba(255,255,255,.28);display:flex;align-items:center;gap:3px}
+.rizz-rings{position:absolute;top:50%;left:50%;width:0;height:0;pointer-events:none}
+.rizz-lbl{font-size:11px;font-weight:500;color:rgba(127,119,221,.8);margin-top:4px}
+.rizz-st{font-size:10px;color:rgba(255,255,255,.22);display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.sdot{width:5px;height:5px;border-radius:50%;background:#1D9E75;animation:pulse 2s infinite}
+.bubble{background:#151e30;border:.5px solid rgba(127,119,221,.14);border-radius:11px;border-bottom-left-radius:3px;padding:9px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.76);max-width:100%;margin-bottom:5px}
+.user-row{display:flex;justify-content:flex-end;margin-bottom:6px;animation:fadeUp .2s ease-out}
+.user-bubble{background:#3C3489;border:none;border-radius:11px;border-bottom-right-radius:3px;padding:9px 12px;font-size:12px;line-height:1.6;color:rgba(255,255,255,.92);max-width:85%}
+.message-group{margin-bottom:6px;animation:fadeUp .25s ease-out}
+.message-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+.chip{font-size:11px;padding:6px 11px;border-radius:20px;border:.5px solid rgba(127,119,221,.28);color:#AFA9EC;background:rgba(127,119,221,.09);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px}
+.chip:hover{background:rgba(127,119,221,.22);border-color:rgba(127,119,221,.5);color:#CECBF6}
+.input-area{flex-shrink:0;border-top:.5px solid rgba(255,255,255,.06);padding:0 12px}
+.ibar{display:flex;align-items:center;gap:6px;padding:7px 0 10px}
+.cinput{flex:1;background:#151e30;border:.5px solid rgba(255,255,255,.07);border-radius:20px;padding:7px 12px;font-size:12px;color:rgba(255,255,255,.8);outline:none;font-family:inherit}
+.cinput::placeholder{color:rgba(255,255,255,.16)}
+.cinput:focus{border-color:rgba(127,119,221,.4)}
+.ibtn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;transition:all .15s}
+.ibtn.mic{background:rgba(255,255,255,.04);color:rgba(255,255,255,.25)}
+.ibtn.voice{background:rgba(255,255,255,.04);color:rgba(255,255,255,.25)}
+.ibtn.voice.active{background:#1D9E75;color:#fff}
+.ibtn.send{background:#3C3489;color:#CECBF6}
+.ibtn.send:hover{background:#534AB7}
+.rctx{background:#111827;border:.5px solid rgba(127,119,221,.18);border-radius:8px;padding:8px 10px;font-size:11px;color:rgba(255,255,255,.5);line-height:1.55;display:flex;gap:7px;animation:slideInLeft .3s ease-out}
+.rctx i{font-size:11px;color:#7F77DD;flex-shrink:0;margin-top:1px}
+.sc{background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:8px;padding:9px 11px;animation:slideInLeft .3s ease-out}
+.sc.hl{border-color:rgba(127,119,221,.2)}
+.sc.gr{border-color:rgba(29,158,117,.18)}
+.sc.ds{border-style:dashed;border-color:rgba(255,255,255,.07)}
+.sc-row{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.sc-t{font-size:12px;font-weight:500;color:rgba(255,255,255,.85)}
+.sc-s{font-size:11px;color:rgba(255,255,255,.28);margin-top:2px;line-height:1.4}
+.pill{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.pg{background:rgba(29,158,117,.14);color:#5DCAA5;border:.5px solid rgba(29,158,117,.2)}
+.pp{background:rgba(127,119,221,.14);color:#AFA9EC;border:.5px solid rgba(127,119,221,.2)}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.ab{font-size:10px;padding:4px 10px;border-radius:16px;border:.5px solid rgba(127,119,221,.22);color:#AFA9EC;cursor:pointer;background:none;margin-top:6px;transition:all .15s;display:inline-block}
+.ab:hover{background:rgba(127,119,221,.1)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.sm{background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:8px;padding:9px 10px}
+.sm-l{font-size:10px;color:rgba(255,255,255,.28);margin-bottom:3px}
+.sm-v{font-size:15px;font-weight:500}
+.lrow{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:.5px solid rgba(255,255,255,.05);font-size:11px}
+.lrow:last-child{border:none}
+.ln{color:rgba(255,255,255,.65);font-weight:500}
+.ld{color:rgba(255,255,255,.28)}
+.api-row{display:flex;align-items:center;gap:8px;background:#111827;border:.5px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;animation:slideInLeft .3s ease-out}
+.api-ic{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
+.api-done{background:rgba(29,158,117,.15);color:#5DCAA5}
+.api-pend{background:rgba(127,119,221,.12);color:#AFA9EC}
+.api-opt{background:rgba(255,255,255,.04);color:rgba(255,255,255,.22)}
+.api-info{flex:1}
+.api-t{font-size:11px;font-weight:500;color:rgba(255,255,255,.8)}
+.api-s{font-size:10px;color:rgba(255,255,255,.28);margin-top:1px}
+.api-btn{font-size:10px;padding:3px 9px;border-radius:16px;border:.5px solid rgba(127,119,221,.28);color:#AFA9EC;cursor:pointer;background:none;white-space:nowrap}
+.api-btn:hover{background:rgba(127,119,221,.1)}
+.api-done-lbl{font-size:10px;color:#5DCAA5}
+.rp{padding:16px 13px;border-bottom:.5px solid rgba(0,0,0,.07)}
+.rp-head{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.rp-av{width:28px;height:28px;border-radius:50%;background:#ede8ff;border:.5px solid #b8b0f0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#534AB7}
+.rp-name{font-size:12px;font-weight:500;color:#1a1a1a}
+.rp-sub{font-size:10px;color:#aaa}
+.rp-bubble{font-size:11px;color:#333;background:#f5f3ff;border-radius:7px;border-bottom-left-radius:2px;padding:8px 10px;line-height:1.55;margin-bottom:7px}
+.pi{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:11px}
+.pd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pd.done{background:#1D9E75}.pd.act{background:#534AB7}.pd.off{background:#e0e0e0}
+.pt-done{color:#bbb;text-decoration:line-through}.pt-act{color:#333;font-weight:500}.pt-off{color:#ccc}
+.stat-pair{display:flex;border-bottom:.5px solid rgba(0,0,0,.07)}
+.stat-cell{flex:1;padding:9px 13px;text-align:center}
+.stat-n{font-size:17px;font-weight:500;color:#1a1a1a}
+.stat-l{font-size:10px;color:#aaa;margin-top:1px}
+.pb{padding:11px 13px;border-bottom:.5px solid rgba(0,0,0,.07)}
+.pb-lbl{font-size:9px;font-weight:500;color:#bbb;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.pb-val{font-size:12px;color:#333;margin-bottom:5px}
+.ptags{display:flex;flex-wrap:wrap;gap:3px}
+.ptag{font-size:10px;padding:2px 7px;border-radius:10px;background:#f0eeff;color:#534AB7;border:.5px solid #d4cef8}
+.bbtns{display:flex;border-top:.5px solid rgba(0,0,0,.07)}
+.bbtn{flex:1;padding:9px 0;text-align:center;font-size:11px;color:#888;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;border:none;background:none;border-right:.5px solid rgba(0,0,0,.07)}
+.bbtn:last-child{border-right:none}
+.bbtn:hover{color:#534AB7}
+.ri-bar{padding:9px 13px;border-top:.5px solid rgba(0,0,0,.07);margin-top:auto}
+.ri{width:100%;background:#f5f3ff;border:.5px solid #d4cef8;border-radius:20px;padding:6px 11px;font-size:11px;color:#333;outline:none;font-family:inherit}
+.ri::placeholder{color:#bbb}
+.history-pill{display:flex;align-items:center;justify-content:center;gap:5px;margin:0 auto 6px;padding:4px 12px;border-radius:14px;border:.5px solid rgba(127,119,221,.2);color:rgba(127,119,221,.5);font-size:10px;background:rgba(127,119,221,.05);cursor:pointer;transition:all .2s;flex-shrink:0}
+.history-pill:hover{border-color:rgba(127,119,221,.45);color:#AFA9EC;background:rgba(127,119,221,.12)}
+.history-drawer{position:absolute;bottom:0;left:0;right:0;background:#0a1020;border-top:.5px solid rgba(127,119,221,.2);border-radius:10px 10px 0 0;z-index:50;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.15,1);display:flex;flex-direction:column;max-height:80%}
+.history-drawer.open{transform:translateY(0)}
+.history-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0}
+.history-drawer-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
+.history-drawer-title i{color:#7F77DD;font-size:12px}
+.history-drawer-close{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:11px;padding:3px 8px;border-radius:5px}
+.history-drawer-close:hover{color:rgba(255,255,255,.6)}
+.history-save-btn{font-size:10px;padding:3px 9px;border-radius:12px;border:.5px solid rgba(29,158,117,.3);color:#5DCAA5;background:rgba(29,158,117,.08);cursor:pointer}
+.history-save-btn:hover{background:rgba(29,158,117,.16)}
+.history-scroll{flex:1;overflow-y:auto;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.history-entry{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-bottom:.5px solid rgba(255,255,255,.04)}
+.history-entry:last-child{border:none}
+.history-entry-who{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(127,119,221,.4);margin-bottom:2px}
+.history-entry-who.you{color:rgba(255,255,255,.2)}
+.history-entry-text{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+.history-section-tag{font-size:9px;color:rgba(127,119,221,.3);margin-top:1px}
+</style>
+</head>
+<body>
+<div class="ipad-frame">
+
+  <header class="ipad-topbar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <svg width="28" height="16" viewBox="0 0 28 16"><path d="M7 8C7 5.8 8.8 4 11 4C13.2 4 14.8 5.5 16 8C17.2 10.5 18.8 12 21 12C23.2 12 25 10.2 25 8C25 5.8 23.2 4 21 4C18.8 4 17.2 5.5 16 8C14.8 10.5 13.2 12 11 12C8.8 12 7 10.2 7 8Z" fill="none" stroke="url(#fg)" stroke-width="2.5"/><defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6c42c2"/><stop offset="100%" stop-color="#2d9e6b"/></linearGradient></defs></svg>
+      <span style="font-size:15px;font-weight:500;background:linear-gradient(to right,#6c42c2,#2d9e6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Resourceful</span>
+    </div>
+    <button onclick="toggleFrameRight()" style="padding:6px;border-radius:8px;border:none;background:none;cursor:pointer" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='none'">
+      <i id="frameRightIcon" class="ti ti-chevron-right" style="color:#6b7280;font-size:14px"></i>
+    </button>
+  </header>
+
+  <div class="ipad-body">
+    <div class="ipad-center">
+      <div class="app" style="height:100%">
+
+        <!-- WHITE LEFT SIDEBAR -->
+        <div class="sidebar">
+          <div class="sb-logo"><div class="sb-logo-mark">R</div>Resourceful</div>
+          <div class="sb-sec">Your journey</div>
+          <div class="step-item"><div class="step-dot done"><i class="ti ti-check" style="font-size:7px"></i></div><span class="step-text done">Joined Resourceful</span></div>
+          <div class="step-item"><div class="step-dot done"><i class="ti ti-check" style="font-size:7px"></i></div><span class="step-text done">Met Rizz</span></div>
+          <div class="step-item"><div class="step-dot active">3</div><span class="step-text active">Explore the hub</span></div>
+          <div class="step-item"><div class="step-dot">4</div><span class="step-text">Join a call</span></div>
+          <div class="step-item"><div class="step-dot">5</div><span class="step-text">Agree your role</span></div>
+          <div class="step-item"><div class="step-dot">6</div><span class="step-text">Connect your tools</span></div>
+          <div class="sb-divider"></div>
+          <div class="sb-sec">Explore</div>
+          <div class="sb-item" id="sb-watch" onclick="go('watch')"><div class="sb-item-l"><i class="ti ti-player-play"></i>Watch</div><span class="sb-badge dot-green"></span></div>
+          <div class="sb-item" id="sb-calls" onclick="go('calls')"><div class="sb-item-l"><i class="ti ti-calendar"></i>Calls</div><span class="sb-badge">3</span></div>
+          <div class="sb-item" id="sb-bounties" onclick="go('bounties')"><div class="sb-item-l"><i class="ti ti-bolt"></i>Bounties</div><span class="sb-badge">6</span></div>
+          <div class="sb-item" id="sb-network" onclick="go('network')"><div class="sb-item-l"><i class="ti ti-users"></i>Network</div></div>
+          <div class="sb-item" id="sb-membership" onclick="go('membership')"><div class="sb-item-l"><i class="ti ti-id-badge"></i>Membership</div></div>
+          <div class="sb-divider"></div>
+          <div class="sb-sec">You</div>
+          <div class="sb-item" id="sb-knowledge" onclick="go('knowledge')"><div class="sb-item-l purple"><i class="ti ti-brain"></i>My Rizz</div><span class="sb-badge num">Setup</span></div>
+          <div class="sb-item"><div class="sb-item-l"><i class="ti ti-user"></i>Your story</div></div>
+          <div class="sb-item"><div class="sb-item-l"><i class="ti ti-wallet"></i>Your stake</div></div>
+          <div class="sb-divider"></div>
+
+          <!-- YOUR ROOMS -->
+          <div class="sb-sec">Your rooms</div>
+          <div id="rooms-list">
+            <div class="sb-room-item" id="sb-room-catastro" onclick="openRoom('catastro')">
+              <div class="sb-room-l"><i class="ti ti-database"></i><span class="sb-room-name">CatastroIntel</span></div>
+              <div class="sb-room-status active"><span style="width:5px;height:5px;border-radius:50%;background:#1D9E75;display:inline-block"></span></div>
+            </div>
+            <div class="sb-room-item" id="sb-room-amadena" onclick="openRoom('amadena')">
+              <div class="sb-room-l"><i class="ti ti-plant"></i><span class="sb-room-name">Amadena Terra</span></div>
+              <div class="sb-room-status active"><span style="width:5px;height:5px;border-radius:50%;background:#1D9E75;display:inline-block"></span></div>
+            </div>
+            <div class="sb-room-item room-locked" id="sb-room-lattice">
+              <div class="sb-room-l"><i class="ti ti-atom"></i><span class="sb-room-name">Lattice</span></div>
+              <div class="sb-room-status locked"><i class="ti ti-lock" style="font-size:9px"></i></div>
+            </div>
+            <div class="sb-divider" style="margin:3px 0"></div>
+            <div class="sb-room-item" id="sb-room-offer" onclick="openRoom('offer')">
+              <div class="sb-room-l"><i class="ti ti-hand"></i><span class="sb-room-name">What I offer</span></div>
+              <div class="sb-room-status active"><span style="width:5px;height:5px;border-radius:50%;background:#1D9E75;display:inline-block"></span></div>
+            </div>
+            <div class="sb-room-item" id="sb-room-need" onclick="openRoom('need')">
+              <div class="sb-room-l"><i class="ti ti-arrow-down-circle"></i><span class="sb-room-name">What I need</span></div>
+              <div class="sb-room-status active"><span style="width:5px;height:5px;border-radius:50%;background:#1D9E75;display:inline-block"></span></div>
+            </div>
+            <div class="sb-room-item room-locked" id="sb-room-membership-room">
+              <div class="sb-room-l"><i class="ti ti-handshake"></i><span class="sb-room-name">Membership &amp; Agreement</span></div>
+              <div class="sb-room-status locked"><i class="ti ti-lock" style="font-size:9px"></i></div>
+            </div>
+          </div>
+          <div class="sb-add-room" onclick="showAddRoomDialog()">
+            <i class="ti ti-plus"></i><span>Add a room</span>
+          </div>
+
+          <div class="sb-divider"></div>
+          <div class="sb-sec">Your network</div>
+          <div class="sb-person"><div class="sb-av" style="background:#0F6E56;color:#9FE1CB">NH</div><div><div class="sb-person-name">Nick Hadfield</div><div class="sb-person-sub">Invited you</div></div></div>
+          <div class="sb-person"><div class="sb-av" style="background:#3C3489;color:#CECBF6">GC</div><div><div class="sb-person-name">Giles Custerson</div><div class="sb-person-sub">Suggested match</div></div></div>
+        </div>
+
+        <!-- DARK CANVAS -->
+        <div class="canvas">
+          <div class="canvas-top">
+            <button class="cpill cpill-back" id="pill-back" onclick="back()" style="display:none"><i class="ti ti-arrow-left" style="font-size:9px"></i> Rizz</button>
+            <button class="cpill live" id="pill-watch" onclick="go('watch')"><i class="ti ti-circle-filled" style="font-size:6px;vertical-align:1px"></i> 2 live</button>
+            <button class="cpill" id="pill-calls" onclick="go('calls')">3 calls</button>
+            <button class="cpill" id="pill-bounties" onclick="go('bounties')">6 bounties</button>
+            <button class="cpill" id="pill-knowledge" onclick="go('knowledge')">My Rizz</button>
+          </div>
+
+          <!-- CANVAS BODY -->
+          <div class="canvas-body">
+
+            <!-- SECTION PANEL -->
+            <div class="section-panel" id="section-panel"></div>
+
+            <!-- RIZZ COLUMN -->
+            <div class="rizz-col">
+              <div class="back-to-rizz" id="master-banner" onclick="back()">
+                <div class="back-rizz-inner">
+                  <div class="back-rizz-avatar">
+                    <svg width="22" height="26" viewBox="0 0 180 210">
+                      <defs><linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6c42c2"/><stop offset="100%" stop-color="#2d9e6b"/></linearGradient></defs>
+                      <rect x="20" y="18" width="140" height="100" rx="16" fill="#3d6b1f"/>
+                      <rect x="30" y="28" width="120" height="76" rx="9" fill="#080810"/>
+                      <ellipse cx="68" cy="60" rx="16" ry="19" fill="#97C459"/>
+                      <ellipse cx="68" cy="62" rx="10" ry="13" fill="#0d1800"/>
+                      <path d="M108 50 L124 61 L108 72" fill="none" stroke="#97C459" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M50 80 Q68 96 90 98 Q112 96 130 80" fill="none" stroke="#97C459" stroke-width="3" stroke-linecap="round"/>
+                      <rect x="32" y="133" width="116" height="52" rx="12" fill="#3d6b1f"/>
+                      <rect x="32" y="133" width="116" height="14" rx="12" fill="#534AB7"/>
+                    </svg>
+                  </div>
+                  <div class="back-rizz-text">
+                    <span class="back-rizz-label">← Back to Rizz</span>
+                    <span class="back-rizz-sub">Close section · return to chat</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hint-row" id="hint-row" style="padding:6px 12px 2px">
+                <button class="hint" onclick="go('watch')"><i class="ti ti-player-play"></i>Watch</button>
+                <button class="hint" onclick="go('calls')"><i class="ti ti-calendar"></i>Calls</button>
+                <button class="hint" onclick="go('bounties')"><i class="ti ti-bolt"></i>Bounties</button>
+                <button class="hint" onclick="go('network')"><i class="ti ti-users"></i>Network</button>
+                <button class="hint" onclick="go('membership')"><i class="ti ti-id-badge"></i>Membership</button>
+                <button class="hint" onclick="go('knowledge')"><i class="ti ti-brain"></i>My Rizz</button>
+              </div>
+
+              <div class="rizz-anchor" id="rizz-center" onclick="if(currentSection)back()" style="cursor:default">
+                <div class="rizz-rings">
+                  <div style="position:absolute;border-radius:50%;border:1px solid rgba(127,119,221,.18);width:130px;height:130px;animation:rp 2.8s ease-in-out infinite;transform:translate(-50%,-50%)"></div>
+                  <div style="position:absolute;border-radius:50%;border:1px solid rgba(127,119,221,.09);width:162px;height:162px;animation:rp 2.8s ease-in-out infinite .45s;transform:translate(-50%,-50%)"></div>
+                  <div style="position:absolute;border-radius:50%;border:1px solid rgba(127,119,221,.05);width:194px;height:194px;animation:rp 2.8s ease-in-out infinite .9s;transform:translate(-50%,-50%)"></div>
+                </div>
+                <div id="avatar-glow" style="animation:gi 3s ease-in-out infinite,bob 2.8s ease-in-out infinite">
+                  <svg class="rizz-avatar-svg" width="120" height="140" viewBox="0 0 180 210">
+                    <defs><linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6c42c2"/><stop offset="100%" stop-color="#2d9e6b"/></linearGradient></defs>
+                    <g style="transform-origin:90px 28px;animation:antb 2s ease-in-out infinite"><line x1="90" y1="28" x2="90" y2="8" stroke="#7F77DD" stroke-width="3.5" stroke-linecap="round"/><circle cx="90" cy="5" r="6" fill="#4a8026" stroke="#97C459" stroke-width="2"/><line x1="83" y1="-1" x2="78" y2="-7" stroke="#97C459" stroke-width="2" stroke-linecap="round"/><line x1="97" y1="-1" x2="102" y2="-7" stroke="#97C459" stroke-width="2" stroke-linecap="round"/></g>
+                    <rect x="20" y="18" width="140" height="100" rx="16" fill="#3d6b1f"/><rect x="24" y="22" width="132" height="92" rx="12" fill="#4e8828"/>
+                    <circle cx="20" cy="68" r="13" fill="#534AB7"/><circle cx="20" cy="68" r="8" fill="#3C3489"/><circle cx="20" cy="68" r="4" fill="#AFA9EC"/>
+                    <circle cx="160" cy="68" r="13" fill="#534AB7"/><circle cx="160" cy="68" r="8" fill="#3C3489"/><circle cx="160" cy="68" r="4" fill="#AFA9EC"/>
+                    <rect x="30" y="28" width="120" height="76" rx="9" fill="#080810"/>
+                    <g style="transform-origin:68px 60px;animation:ebl 4.5s ease-in-out infinite"><ellipse cx="68" cy="60" rx="16" ry="19" fill="#97C459"/><ellipse cx="68" cy="62" rx="10" ry="13" fill="#0d1800"/><ellipse cx="63" cy="55" rx="4" ry="5" fill="#97C459" opacity=".55"/><circle cx="62" cy="54" r="1.5" fill="#d4f08a"/></g>
+                    <path d="M108 50 L124 61 L108 72" fill="none" stroke="#97C459" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="108" y1="50" x2="103" y2="43" stroke="#97C459" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M50 80 Q68 96 90 98 Q112 96 130 80" fill="none" stroke="#97C459" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="47" cy="82" r="5" fill="#97C459" opacity=".16"/><circle cx="133" cy="82" r="5" fill="#97C459" opacity=".16"/>
+                    <rect x="72" y="118" width="36" height="16" rx="4" fill="#26215C"/><rect x="72" y="133" width="36" height="10" rx="4" fill="#3d6b1f"/>
+                    <rect x="32" y="133" width="116" height="52" rx="12" fill="#3d6b1f"/><rect x="38" y="137" width="104" height="44" rx="8" fill="#4e8828"/>
+                    <rect x="32" y="133" width="116" height="14" rx="12" fill="#534AB7"/><rect x="32" y="142" width="116" height="5" fill="#534AB7"/>
+                    <g transform="translate(76,151) scale(1.7)"><path d="M7 8C7 5.8 8.8 4 11 4C13.2 4 14.8 5.5 16 8C17.2 10.5 18.8 12 21 12C23.2 12 25 10.2 25 8C25 5.8 23.2 4 21 4C18.8 4 17.2 5.5 16 8C14.8 10.5 13.2 12 11 12C8.8 12 7 10.2 7 8Z" fill="none" stroke="url(#ig)" stroke-width="2.5"/></g>
+                    <rect x="10" y="138" width="24" height="10" rx="5" fill="#534AB7"/><rect x="4" y="147" width="18" height="26" rx="9" fill="#3d6b1f"/>
+                    <rect x="146" y="136" width="24" height="10" rx="5" fill="#534AB7"/>
+                    <g id="wave-arm" style="transform-origin:161px 120px;animation:wave 1.2s ease-in-out infinite"><rect x="150" y="114" width="22" height="26" rx="10" fill="#3d6b1f" transform="rotate(5,161,120)"/><ellipse cx="164" cy="112" rx="12" ry="9" fill="#d3d1c7"/><rect x="156" y="96" width="5" height="18" rx="2.5" fill="#d3d1c7" transform="rotate(-15,158,104)"/><rect x="162" y="93" width="5" height="20" rx="2.5" fill="#d3d1c7"/><rect x="168" y="95" width="5" height="18" rx="2.5" fill="#d3d1c7" transform="rotate(15,170,104)"/><rect x="172" y="102" width="5" height="14" rx="2.5" fill="#d3d1c7" transform="rotate(30,174,106)"/><rect x="151" y="106" width="7" height="5" rx="2.5" fill="#d3d1c7" transform="rotate(-30,154,108)"/></g>
+                  </svg>
+                </div>
+                <div class="rizz-lbl">Rizz</div>
+                <div class="rizz-st"><span class="sdot"></span>Listening</div>
+                <div class="rizz-compact-info">
+                  <div class="rizz-compact-name">Rizz</div>
+                  <div class="rizz-compact-st"><span class="sdot"></span>Listening</div>
+                </div>
+              </div>
+
+              <div class="message-area" id="message-area">
+                <div class="history-pill" id="history-pill" style="display:none" onclick="openHistoryDrawer()">
+                  <i class="ti ti-history"></i>
+                  <span id="history-pill-label">Earlier messages — tap to view</span>
+                </div>
+                <div class="message-group" id="welcome-msg" data-msg-id="0"></div>
+              </div>
+
+              <div class="history-drawer" id="history-drawer">
+                <div class="history-drawer-header">
+                  <div class="history-drawer-title"><i class="ti ti-history"></i>Full conversation</div>
+                  <div style="display:flex;gap:6px;align-items:center">
+                    <button class="history-save-btn" onclick="saveHistory()"><i class="ti ti-download"></i> Save</button>
+                    <button class="history-drawer-close" onclick="closeHistoryDrawer()">✕ Close</button>
+                  </div>
+                </div>
+                <div class="history-scroll" id="history-scroll"></div>
+              </div>
+
+              <div class="input-area">
+                <div class="ibar">
+                  <button class="ibtn voice" id="voice-toggle" onclick="toggleVoice()" aria-label="Toggle Voice"><i class="ti ti-speaker"></i></button>
+                  <button class="ibtn mic" aria-label="Voice"><i class="ti ti-microphone"></i></button>
+                  <input class="cinput" id="main-input" placeholder="Reply to Rizz..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+                  <button class="ibtn send" onclick="sendMsg()"><i class="ti ti-arrow-up"></i></button>
+                </div>
+              </div>
+            </div><!-- /rizz-col -->
+
+            <!-- TOPIC ROOM OVERLAY — full canvas -->
+            <div class="topic-room-overlay" id="topic-room-overlay">
+              <div class="tr-topbar">
+                <button class="tr-back" onclick="closeRoom()"><i class="ti ti-arrow-left"></i> Back to hub</button>
+                <div class="tr-title">
+                  <i class="ti ti-database" id="tr-icon"></i>
+                  <span id="tr-title-text">CatastroIntel</span>
+                  <span class="tr-stage-pill" id="tr-stage-pill">In conversation</span>
+                </div>
+                <div class="tr-actions">
+                  <button class="tr-action-btn" onclick="markDocReady()" id="tr-ready-btn">Mark draft ready</button>
+                  <button class="tr-action-btn" style="border-color:rgba(127,119,221,.25);color:#AFA9EC" onclick="shareWithNick()">Share with Nick</button>
+                </div>
+              </div>
+
+              <div class="tr-body">
+                <!-- LEFT: Rizz chat scoped to this room -->
+                <div class="tr-chat">
+                  <div class="tr-chat-scroll" id="tr-chat-scroll">
+                    <!-- populated by openRoom() -->
+                  </div>
+                  <div class="tr-input-area">
+                    <div class="tr-ibar">
+                      <button class="ibtn mic" aria-label="Voice"><i class="ti ti-microphone"></i></button>
+                      <input class="cinput" id="tr-input" placeholder="Talk to Rizz about this..." onkeydown="if(event.key==='Enter')sendRoomMsg()"/>
+                      <button class="ibtn send" onclick="sendRoomMsg()"><i class="ti ti-arrow-up"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CENTRE: Living document -->
+                <div class="tr-doc">
+                  <div class="tr-doc-scroll" id="tr-doc-scroll">
+                    <!-- populated by openRoom() -->
+                  </div>
+                </div>
+
+                <!-- RIGHT: Status panel -->
+                <div class="tr-status">
+                  <div class="tr-status-sec">
+                    <div class="tr-status-label">Participants</div>
+                    <div class="tr-participant">
+                      <div class="tr-p-av" style="background:#3C3489;color:#CECBF6">JM</div>
+                      <span class="tr-p-name">Joseph</span>
+                      <span class="tr-p-status active">● active</span>
+                    </div>
+                    <div class="tr-participant">
+                      <div class="tr-p-av" style="background:#0F6E56;color:#9FE1CB">NH</div>
+                      <span class="tr-p-name">Nick</span>
+                      <span class="tr-p-status pending" id="tr-nick-status">○ pending</span>
+                    </div>
+                    <div class="tr-participant">
+                      <div class="tr-p-av" style="background:#534AB7;color:#CECBF6;font-size:7px">R</div>
+                      <span class="tr-p-name">Rizz</span>
+                      <span class="tr-p-status active">● present</span>
+                    </div>
+                  </div>
+
+                  <div class="tr-status-sec">
+                    <div class="tr-status-label">Stage</div>
+                    <div class="tr-stage-list" id="tr-stage-list">
+                      <div class="tr-stage-row current"><div class="tr-stage-dot current"></div>Conversation</div>
+                      <div class="tr-stage-row"><div class="tr-stage-dot"></div>Draft ready</div>
+                      <div class="tr-stage-row"><div class="tr-stage-dot"></div>Nick reviewing</div>
+                      <div class="tr-stage-row"><div class="tr-stage-dot"></div>Back to Joseph</div>
+                      <div class="tr-stage-row"><div class="tr-stage-dot"></div>Agreed</div>
+                    </div>
+                  </div>
+
+                  <div class="tr-status-sec">
+                    <div class="tr-status-label">Linked rooms</div>
+                    <div class="tr-linked" id="tr-linked-rooms"></div>
+                  </div>
+
+                  <div class="tr-status-sec">
+                    <div class="tr-status-label">Next action</div>
+                    <div class="tr-next-action">
+                      <div class="tr-next-label">Joseph</div>
+                      <div class="tr-next-text" id="tr-next-text">Keep talking with Rizz</div>
+                    </div>
+                  </div>
+
+                  <div class="tr-status-sec" style="margin-top:auto">
+                    <div class="tr-status-label">History</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.6" id="tr-history-info">Room opened today<br>0 previous sessions</div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /topic-room-overlay -->
+
+          </div><!-- /canvas-body -->
+        </div><!-- /canvas -->
+
+        <audio id="audioPlayer" crossorigin="anonymous"></audio>
+
+      </div><!-- /app -->
+    </div><!-- /ipad-center -->
+
+    <!-- RIGHT FRAME -->
+    <div class="ipad-right-frame" id="ipadRightFrame">
+      <div class="rp">
+        <div class="rp-head"><div class="rp-av">R</div><div><div class="rp-name">Rizz</div><div class="rp-sub">AI Assistant</div></div></div>
+        <div class="pi"><div class="pd done"></div><span class="pt-done">Verified by Nick</span></div>
+        <div class="pi"><div class="pd act"></div><span class="pt-act">Introductions</span></div>
+        <div class="pi"><div class="pd off"></div><span class="pt-off">Email & account</span></div>
+        <div class="pi"><div class="pd off"></div><span class="pt-off">Wallet created</span></div>
+      </div>
+      <div class="stat-pair">
+        <div class="stat-cell"><div class="stat-n">1</div><div class="stat-l">Invitation</div></div>
+        <div class="stat-cell"><div class="stat-n">✓</div><div class="stat-l">Verified</div></div>
+      </div>
+      <div class="pb"><div class="pb-lbl">Name</div><div class="pb-val">Joseph</div></div>
+      <div class="pb"><div class="pb-lbl">Building</div><div class="pb-val">Amadena Terra · Sacred Valley</div></div>
+      <div class="pb"><div class="pb-lbl">Interests</div><div class="ptags" style="margin-top:4px"><span class="ptag">Regenerative land</span><span class="ptag">Coordination</span><span class="ptag">Intelligence layers</span></div></div>
+      <div class="bbtns">
+        <button class="bbtn" onclick="go('network')"><i class="ti ti-users" style="font-size:12px"></i>Network</button>
+        <button class="bbtn" onclick="go('knowledge')"><i class="ti ti-trending-up" style="font-size:12px"></i>Progress</button>
+      </div>
+      <div class="ri-bar"><input class="ri" placeholder="Ask me anything..."/></div>
+    </div>
+
+    <!-- ADD ROOM DIALOG (sits inside canvas area) -->
+    <div class="add-room-overlay" id="add-room-overlay" onclick="if(event.target===this)hideAddRoomDialog()">
+      <div class="add-room-dialog">
+        <div class="add-room-title">Add a room</div>
+        <div class="add-room-sub">Name a project, idea, or anything you want to explore with Rizz. It becomes its own space in your hub.</div>
+        <input class="add-room-input" id="add-room-input" placeholder="e.g. Carbon credits project, Podcast idea..." onkeydown="if(event.key==='Enter')submitNewRoom()"/>
+        <div class="add-room-btns">
+          <button class="add-room-cancel" onclick="hideAddRoomDialog()">Cancel</button>
+          <button class="add-room-submit" onclick="submitNewRoom()">Create room →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = window.__NEXT_PUBLIC_SUPABASE_URL || window.ENV_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = window.__NEXT_PUBLIC_SUPABASE_ANON_KEY || window.ENV_SUPABASE_ANON_KEY || '';
+const supabaseClient = SUPABASE_URL && SUPABASE_ANON_KEY ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const TODAYS_CALL_LINK = 'https://meet.google.com/xxx-xxxx-xxx';
+const TODAYS_CALL_TIME = 'Today at 3pm UTC';
+let awaitEmailForAuth = false;
+let userEmail = '';
+let authTriggeredThisSession = false;
+let masterHistory = [];
+const CALL_URL = 'https://onboarding-launch-v2.vercel.app/v2/room/meeting-temp-1-fixed';
+
+let voiceEnabled = localStorage.getItem('rizzVoice') !== 'false';
+const MSG_VISIBLE = 3;
+let msgCounter = 1;
+let fullHistory = [];
+
+// ── TOPIC ROOMS DATA ─────────────────────────────────────────────────────
+const ROOMS = {
+  catastro: {
+    icon: 'ti-database',
+    title: 'CatastroIntel',
+    type: 'private',
+    opener: "CatastroIntel — you've made fast progress on this. A mining database starting in Peru, and there's already a conversation with Nick about backing the Resourceful token with silver. Before we get into what any collaboration looks like, I want to understand where you actually are right now. What exists today, and what's the next big unlock you need?",
+    docTitle: 'CatastroIntel',
+    docSections: [
+      { id: 'project', label: 'The project', icon: 'ti-file-description', placeholder: 'What it is, where it\'s at, what\'s next' },
+      { id: 'opportunity', label: 'The opportunity', icon: 'ti-bulb', placeholder: 'What CatastroIntel brings · what Resourceful brings' },
+      { id: 'ask', label: 'What I need', icon: 'ti-hand', placeholder: 'What Joseph needs from the network' },
+      { id: 'open', label: 'Open questions', icon: 'ti-question-mark', placeholder: 'Things still to resolve' },
+      { id: 'agreed', label: 'Agreements', icon: 'ti-check', placeholder: 'Empty until signed off' }
+    ],
+    linked: ['What I need', 'Membership & Agreement'],
+    stage: 'Conversation'
+  },
+  amadena: {
+    icon: 'ti-plant',
+    title: 'Amadena Terra',
+    type: 'private',
+    opener: "Amadena Terra — regenerative land in the Sacred Valley. I know this is the most live project for you on the ground. What's the current state — is the land secured, and what does the activation plan look like right now?",
+    docTitle: 'Amadena Terra',
+    docSections: [
+      { id: 'project', label: 'The project', icon: 'ti-file-description', placeholder: 'Land, location, current status' },
+      { id: 'vision', label: 'The vision', icon: 'ti-eye', placeholder: 'What this becomes · what it demonstrates' },
+      { id: 'ask', label: 'What I need', icon: 'ti-hand', placeholder: 'Resources, people, partners needed' },
+      { id: 'open', label: 'Open questions', icon: 'ti-question-mark', placeholder: 'Things still to resolve' },
+      { id: 'agreed', label: 'Agreements', icon: 'ti-check', placeholder: 'Empty until signed off' }
+    ],
+    linked: ['What I offer', 'What I need'],
+    stage: 'Conversation'
+  },
+  offer: {
+    icon: 'ti-hand',
+    title: 'What I offer',
+    type: 'network',
+    opener: "This room is about what you bring — to Resourceful and to the network. Some of this is visible to others once you're happy with it. What are the two or three things you'd most want people here to know you can do or contribute?",
+    docTitle: 'What Joseph offers',
+    docSections: [
+      { id: 'skills', label: 'Skills & expertise', icon: 'ti-tool', placeholder: 'What you can do, build, facilitate' },
+      { id: 'resources', label: 'Resources & access', icon: 'ti-key', placeholder: 'Networks, assets, knowledge you bring' },
+      { id: 'time', label: 'Time & capacity', icon: 'ti-clock', placeholder: 'How much, in what form' },
+      { id: 'collab', label: 'Best collaborations', icon: 'ti-users', placeholder: 'What kind of work energises you' }
+    ],
+    linked: ['What I need', 'CatastroIntel', 'Amadena Terra'],
+    stage: 'Conversation'
+  },
+  need: {
+    icon: 'ti-arrow-down-circle',
+    title: 'What I need',
+    type: 'network',
+    opener: "What I need — this becomes part of how the network knows where to show up for you. Some things you might share openly, others just with Nick. What are you actually trying to unlock right now that you don't have?",
+    docTitle: 'What Joseph needs',
+    docSections: [
+      { id: 'immediate', label: 'Immediate needs', icon: 'ti-urgent', placeholder: 'What would unblock you right now' },
+      { id: 'connections', label: 'Connections wanted', icon: 'ti-user-plus', placeholder: 'Types of people or orgs to meet' },
+      { id: 'resources', label: 'Resources needed', icon: 'ti-package', placeholder: 'Capital, tools, space, time' },
+      { id: 'knowledge', label: 'Knowledge gaps', icon: 'ti-school', placeholder: 'What you\'re trying to learn or solve' }
+    ],
+    linked: ['What I offer', 'CatastroIntel', 'Amadena Terra'],
+    stage: 'Conversation'
+  }
+};
+
+// Per-room chat and doc state
+const roomState = {};
+Object.keys(ROOMS).forEach(k => {
+  roomState[k] = {
+    chatHistory: [],
+    docContent: {},
+    sessionCount: 0,
+    lastOpened: null
+  };
+});
+
+let currentRoom = null;
+
+// ── TOPIC ROOM OPEN/CLOSE ─────────────────────────────────────────────────
+function openRoom(roomKey) {
+  const room = ROOMS[roomKey];
+  if (!room) return;
+
+  currentRoom = roomKey;
+  const state = roomState[roomKey];
+
+  // Update sidebar active
+  document.querySelectorAll('.sb-room-item').forEach(el => el.classList.remove('active-link'));
+  const sbEl = document.getElementById(`sb-room-${roomKey}`);
+  if (sbEl) sbEl.classList.add('active-link');
+
+  // Update topbar
+  document.getElementById('tr-icon').className = `ti ${room.icon}`;
+  document.getElementById('tr-title-text').textContent = room.title;
+  document.getElementById('tr-stage-pill').textContent = room.stage;
+
+  // Linked rooms
+  const linkedEl = document.getElementById('tr-linked-rooms');
+  linkedEl.innerHTML = room.linked.map(l => `<div class="tr-link-item">→ ${l}</div>`).join('');
+
+  // Network badge on doc title
+  const networkBadge = room.type === 'network' 
+    ? `<span style="font-size:9px;padding:2px 7px;border-radius:8px;background:rgba(29,158,107,.1);color:#5DCAA5;border:.5px solid rgba(29,158,107,.2);margin-left:8px">Network</span>` 
+    : `<span style="font-size:9px;padding:2px 7px;border-radius:8px;background:rgba(83,74,183,.1);color:#AFA9EC;border:.5px solid rgba(127,119,221,.2);margin-left:8px">Private</span>`;
+
+  // Build document
+  const docScroll = document.getElementById('tr-doc-scroll');
+  docScroll.innerHTML = `
+    <div class="tr-doc-header">
+      <div class="tr-doc-title">${room.docTitle}${networkBadge}</div>
+      <div class="tr-doc-meta">
+        <span style="width:5px;height:5px;border-radius:50%;background:#534AB7;display:inline-block"></span>
+        Building in real time
+        <span style="opacity:.4">·</span>
+        Click any section to edit
+      </div>
+    </div>
+    ${room.docSections.map(sec => `
+      <div class="tr-doc-sec">
+        <div class="tr-doc-sec-label">
+          <i class="ti ${sec.icon}"></i>
+          ${sec.label}
+          <button class="tr-doc-badge private" onclick="togglePrivate(this)" title="Toggle visibility">private</button>
+        </div>
+        <div class="tr-doc-content editable" id="doc-${roomKey}-${sec.id}" contenteditable="true" data-placeholder="${sec.placeholder}">${state.docContent[sec.id] || ''}</div>
+      </div>
+    `).join('')}
+  `;
+
+  // Set placeholder text on empty editable divs
+  docScroll.querySelectorAll('[contenteditable]').forEach(el => {
+    if (!el.textContent.trim()) {
+      el.textContent = el.dataset.placeholder;
+      el.style.color = 'rgba(255,255,255,.2)';
+      el.style.fontStyle = 'italic';
+    }
+    el.addEventListener('focus', function() {
+      if (this.textContent === this.dataset.placeholder) {
+        this.textContent = '';
+        this.style.color = '';
+        this.style.fontStyle = '';
+        this.classList.add('has-content');
+      }
+    });
+    el.addEventListener('blur', function() {
+      const sectionId = this.id.split('-').pop();
+      state.docContent[sectionId] = this.textContent.trim();
+      if (!this.textContent.trim()) {
+        this.textContent = this.dataset.placeholder;
+        this.style.color = 'rgba(255,255,255,.2)';
+        this.style.fontStyle = 'italic';
+        this.classList.remove('has-content');
+      }
+    });
+  });
+
+  // Build chat
+  const chatScroll = document.getElementById('tr-chat-scroll');
+  chatScroll.innerHTML = '';
+
+  if (state.chatHistory.length === 0) {
+    // First visit — Rizz opener
+    state.sessionCount++;
+    state.lastOpened = new Date();
+    setTimeout(() => {
+      addRoomMsg(room.opener, 'rizz');
+    }, 400);
+  } else {
+    // Returning — rebuild chat
+    state.chatHistory.forEach(msg => {
+      const el = document.createElement('div');
+      if (msg.role === 'user') {
+        el.className = 'tr-msg-user';
+        el.innerHTML = `<div class="tr-msg-user-bubble">${msg.text}</div>`;
+      } else {
+        el.className = 'tr-msg-rizz';
+        el.textContent = msg.text;
+      }
+      chatScroll.appendChild(el);
+    });
+
+    // Returning message from Rizz
+    const lastSession = state.lastOpened ? formatTimeAgo(state.lastOpened) : 'a moment ago';
+    setTimeout(() => {
+      addRoomMsg(`Welcome back. We last talked ${lastSession}. Ready to pick up where we left off — or has anything changed since then?`, 'rizz');
+    }, 300);
+    state.lastOpened = new Date();
+  }
+
+  // Update history info
+  document.getElementById('tr-history-info').innerHTML = `Room opened today<br>${state.sessionCount > 1 ? state.sessionCount - 1 + ' previous session' + (state.sessionCount > 2 ? 's' : '') : '0 previous sessions'}`;
+
+  // Focus input and show overlay
+  document.getElementById('topic-room-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('tr-input').focus(), 300);
+}
+
+function closeRoom() {
+  document.getElementById('topic-room-overlay').classList.remove('open');
+  document.querySelectorAll('.sb-room-item').forEach(el => el.classList.remove('active-link'));
+  currentRoom = null;
+}
+
+function addRoomMsg(text, role) {
+  const chatScroll = document.getElementById('tr-chat-scroll');
+  const el = document.createElement('div');
+
+  if (role === 'user') {
+    el.className = 'tr-msg-user';
+    el.innerHTML = `<div class="tr-msg-user-bubble">${text}</div>`;
+  } else {
+    el.className = 'tr-msg-rizz';
+    el.textContent = text;
+    // Try to update doc sections based on conversation
+    setTimeout(() => updateDocFromConversation(text), 600);
+  }
+
+  chatScroll.appendChild(el);
+  chatScroll.scrollTop = chatScroll.scrollHeight;
+
+  if (currentRoom) {
+    roomState[currentRoom].chatHistory.push({ role, text, ts: new Date() });
+  }
+  if (role === 'rizz') speakText(text);
+}
+
+async function sendRoomMsg() {
+  const inp = document.getElementById('tr-input');
+  const text = inp.value.trim();
+  if (!text || !currentRoom) return;
+  inp.value = '';
+
+  addRoomMsg(text, 'user');
+
+  // Typing indicator
+  const chatScroll = document.getElementById('tr-chat-scroll');
+  const typing = document.createElement('div');
+  typing.className = 'tr-typing';
+  typing.id = 'tr-typing';
+  typing.textContent = 'Rizz is thinking…';
+  chatScroll.appendChild(typing);
+  chatScroll.scrollTop = chatScroll.scrollHeight;
+
+  const room = ROOMS[currentRoom];
+  const history = roomState[currentRoom].chatHistory.slice(-10).map(m => ({
+    role: m.role === 'user' ? 'user' : 'assistant',
+    content: m.text
+  }));
+
+  try {
+    const r = await fetch('/api/chat?invite_id=joseph-onboarding', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        history,
+        section: currentRoom,
+        roomContext: `Room: ${room.title}. Type: ${room.type}. Stage: ${room.stage}. This is a focused room conversation about ${room.title} — stay tightly on this topic.`,
+        queryText: text
+      })
+    });
+    const data = await r.json();
+    document.getElementById('tr-typing')?.remove();
+    let reply = data.content || data.message || "Tell me more.";
+    addRoomMsg(reply, 'rizz');
+  } catch (e) {
+    document.getElementById('tr-typing')?.remove();
+    const fallbacks = [
+      "That's useful context. Let me add that to the document.",
+      "Got it. What does that mean for what you need from the network?",
+      "Interesting. Is that the main thing blocking progress right now?"
+    ];
+    addRoomMsg(fallbacks[Math.floor(Math.random() * fallbacks.length)], 'rizz');
+  }
+}
+
+// Simple heuristic: if Rizz says "I'm adding that", animate a doc section
+function updateDocFromConversation(rizzText) {
+  if (!currentRoom) return;
+  const lower = rizzText.toLowerCase();
+  const room = ROOMS[currentRoom];
+  const docEl = document.getElementById('tr-doc-scroll');
+  if (!docEl) return;
+
+  // Find sections that are still empty and might match
+  room.docSections.forEach(sec => {
+    const contentEl = document.getElementById(`doc-${currentRoom}-${sec.id}`);
+    if (!contentEl) return;
+    const isEmpty = contentEl.textContent === contentEl.dataset.placeholder || !contentEl.textContent.trim();
+    if (isEmpty && (lower.includes('document') || lower.includes('add') || lower.includes('capture'))) {
+      // Subtle pulse to show document is alive
+      contentEl.style.animation = 'docPulse 2s ease-out';
+      setTimeout(() => { contentEl.style.animation = ''; }, 2000);
+    }
+  });
+}
+
+function markDocReady() {
+  if (!currentRoom) return;
+  const pill = document.getElementById('tr-stage-pill');
+  pill.textContent = 'Draft ready';
+  pill.style.borderColor = 'rgba(29,158,107,.4)';
+  pill.style.color = '#5DCAA5';
+  pill.style.background = 'rgba(29,158,107,.1)';
+  
+  // Update stage list
+  const stages = document.querySelectorAll('.tr-stage-row');
+  if (stages[0]) { stages[0].classList.remove('current'); stages[0].classList.add('done'); stages[0].querySelector('.tr-stage-dot').classList.remove('current'); stages[0].querySelector('.tr-stage-dot').classList.add('done'); }
+  if (stages[1]) { stages[1].classList.add('current'); stages[1].querySelector('.tr-stage-dot').classList.add('current'); }
+
+  document.getElementById('tr-next-text').textContent = 'Review draft · share with Nick';
+  document.getElementById('tr-ready-btn').textContent = '✓ Draft ready';
+  document.getElementById('tr-ready-btn').style.color = '#5DCAA5';
+  
+  addRoomMsg("I've marked this as draft ready. Take a read through and let me know if anything needs adjusting before it goes to Nick.", 'rizz');
+}
+
+function shareWithNick() {
+  if (!currentRoom) return;
+  document.getElementById('tr-nick-status').textContent = '● notified';
+  document.getElementById('tr-nick-status').style.color = '#5DCAA5';
+  document.getElementById('tr-next-text').textContent = 'Waiting for Nick to review';
+  addRoomMsg("I've sent Nick a summary. He'll see it in his cockpit — I'll let you know as soon as he responds.", 'rizz');
+}
+
+function togglePrivate(btn) {
+  const isPrivate = btn.textContent === 'private';
+  btn.textContent = isPrivate ? 'shared' : 'private';
+  btn.style.background = isPrivate ? 'rgba(29,158,107,.1)' : '';
+  btn.style.color = isPrivate ? '#5DCAA5' : '';
+  btn.style.borderColor = isPrivate ? 'rgba(29,158,107,.2)' : '';
+}
+
+function formatTimeAgo(date) {
+  const mins = Math.floor((new Date() - date) / 60000);
+  if (mins < 2) return 'just now';
+  if (mins < 60) return `${mins} mins ago`;
+  const hrs = Math.floor(mins / 60);
+  return `${hrs} hour${hrs > 1 ? 's' : ''} ago`;
+}
+
+// ── ADD ROOM ─────────────────────────────────────────────────────────────
+function showAddRoomDialog() {
+  const overlay = document.getElementById('add-room-overlay');
+  overlay.style.position = 'fixed';
+  overlay.classList.add('open');
+  setTimeout(() => document.getElementById('add-room-input').focus(), 200);
+}
+
+function hideAddRoomDialog() {
+  document.getElementById('add-room-overlay').classList.remove('open');
+  document.getElementById('add-room-input').value = '';
+}
+
+function submitNewRoom() {
+  const input = document.getElementById('add-room-input');
+  const name = input.value.trim();
+  if (!name) return;
+
+  const key = 'custom_' + Date.now();
+  const icon = 'ti-puzzle';
+
+  // Add to ROOMS
+  ROOMS[key] = {
+    icon,
+    title: name,
+    type: 'private',
+    opener: `You've added ${name} — I don't have any background on this yet. Tell me what it is in a sentence or two and we'll start building from there.`,
+    docTitle: name,
+    docSections: [
+      { id: 'overview', label: 'Overview', icon: 'ti-file-description', placeholder: 'What this is' },
+      { id: 'status', label: 'Current status', icon: 'ti-radar', placeholder: 'Where things stand' },
+      { id: 'ask', label: 'What I need', icon: 'ti-hand', placeholder: 'What would move this forward' },
+      { id: 'open', label: 'Open questions', icon: 'ti-question-mark', placeholder: 'Things to figure out' }
+    ],
+    linked: ['What I offer', 'What I need'],
+    stage: 'Conversation'
+  };
+  roomState[key] = { chatHistory: [], docContent: {}, sessionCount: 0, lastOpened: null };
+
+  // Add to sidebar
+  const roomsList = document.getElementById('rooms-list');
+  const divider = roomsList.querySelector('.sb-divider');
+  const newItem = document.createElement('div');
+  newItem.className = 'sb-room-item';
+  newItem.id = `sb-room-${key}`;
+  newItem.setAttribute('onclick', `openRoom('${key}')`);
+  newItem.innerHTML = `
+    <div class="sb-room-l"><i class="ti ${icon}"></i><span class="sb-room-name">${name}</span></div>
+    <div class="sb-room-status active"><span style="width:5px;height:5px;border-radius:50%;background:#1D9E75;display:inline-block"></span></div>
+  `;
+  // Insert before the divider (before offer/need)
+  roomsList.insertBefore(newItem, divider);
+
+  hideAddRoomDialog();
+
+  // Small delay then open it
+  setTimeout(() => openRoom(key), 150);
+}
+
+// ── SECTIONS (existing) ────────────────────────────────────────────────────
+const SECTIONS = {
+  watch:{icon:'ti-player-play',title:'Watch',pill:'pill-watch',sb:'sb-watch',
+    conjure:"I'm pulling up Watch — ARIA's live right now with 7 people in. There's also a 12-min platform overview built for exactly your context.",
+    scoped:"ARIA briefing is most relevant for Amadena Terra. Platform overview is 12 min — the right starting point before your first call.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>ARIA briefing is live. Platform overview is the right starting point for your context.</div>
+    <div class="sc gr"><div class="sc-row"><div><div class="sc-t">ARIA Arena kickoff</div><div class="sc-s">Nick Hadfield · Live · 7 watching</div></div><span class="pill pg">Live</span></div><button class="ab">Join live</button></div>
+    <div class="sc hl"><div class="sc-row"><div><div class="sc-t">Platform overview</div><div class="sc-s">12 min · 142 views · New</div></div><span class="pill pp">For you</span></div><button class="ab">Watch</button></div>
+    <div class="sc"><div class="sc-t">NFT raise strategy</div><div class="sc-s">22 min · 89 views</div><button class="ab">Watch</button></div>
+    <div class="sc"><div class="sc-t">Bounty system explained</div><div class="sc-s">11 min · 178 views</div><button class="ab">Watch</button></div>
+    <div class="sc ds"><div class="sc-t" style="color:rgba(255,255,255,.38)"><i class="ti ti-video-plus" style="margin-right:4px"></i>Create media with Rizz</div><div class="sc-s" style="margin-top:3px">Talk on video — Rizz transcribes and adds to library</div><button class="ab">Start recording</button></div>`},
+  calls:{icon:'ti-calendar',title:'Calls',pill:'pill-calls',sb:'sb-calls',
+    conjure:"3 calls on the schedule — let me show you. ARIA Governance is today and it's the most relevant for land coordination work.",
+    scoped:"ARIA Governance has land-layer discussion on the agenda today. Your most direct overlap with Amadena Terra.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>ARIA Governance call has land-layer discussion — highly relevant to Amadena Terra.</div>
+    <div class="sc gr"><div class="sc-row"><div><div class="sc-t">ARIA Governance</div><div class="sc-s">Today, 3pm UTC · 12 joining</div></div><span class="pill pg">Today</span></div><button class="ab" onclick="window.location.href='${CALL_URL}'">Join</button></div>
+    <div class="sc hl"><div class="sc-row"><div><div class="sc-t">Sacred Valley cohort</div><div class="sc-s">Thu 15 May · 6 joining</div></div><span class="pill pp">Your region</span></div><button class="ab" onclick="window.location.href='${CALL_URL}'">RSVP</button></div>
+    <div class="sc"><div class="sc-row"><div><div class="sc-t">Founders deep-dive</div><div class="sc-s">Fri 16 May · 8 joining</div></div></div><button class="ab" onclick="window.location.href='${CALL_URL}'">RSVP</button></div>
+    <div class="sc ds"><div class="sc-t" style="color:rgba(255,255,255,.38)"><i class="ti ti-phone-plus" style="margin-right:4px"></i>Schedule 1:1 with Rizz</div><div class="sc-s" style="margin-top:3px">Onboarding session — pick a time</div><button class="ab">Schedule</button></div>`},
+  bounties:{icon:'ti-bolt',title:'Bounties',pill:'pill-bounties',sb:'sb-bounties',
+    conjure:"6 bounties open right now. Two are a strong match — coordination mapping and intelligence-layer work, both squarely in your zone.",
+    scoped:"Coordination map closes in 5 days and pays $800. Intelligence layer is $1,200 with 12 days left. Both match your background closely.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>Two bounties match your skills: coordination mapping and intelligence-layer work.</div>
+    <div class="sc gr"><div class="sc-row"><div><div class="sc-t">Coordination map — Sacred Valley</div><div class="sc-s">$800 · Closes in 5 days</div></div><span class="pill pg">Match</span></div><div class="tags"><span class="pill pp">Coordination</span><span class="pill pp">Land</span></div><button class="ab">Apply</button></div>
+    <div class="sc hl"><div class="sc-row"><div><div class="sc-t">Intelligence layer prototype</div><div class="sc-s">$1,200 · Closes in 12 days</div></div><span class="pill pg">Match</span></div><div class="tags"><span class="pill pp">AI</span><span class="pill pp">Mapping</span></div><button class="ab">Apply</button></div>
+    <div class="sc"><div class="sc-row"><div><div class="sc-t">Regenerative finance overview</div><div class="sc-s">$500 · Closes in 3 days</div></div></div><button class="ab">View</button></div>
+    <div class="sc"><div class="sc-row"><div><div class="sc-t">Community call notes</div><div class="sc-s">$200 · Ongoing</div></div></div><button class="ab">View</button></div>
+    <div class="sc"><div class="sc-row"><div><div class="sc-t">Impact report writing</div><div class="sc-s">$600 · 8 days</div></div></div><button class="ab">View</button></div>`},
+  network:{icon:'ti-users',title:'Network',pill:null,sb:'sb-network',
+    conjure:"Your network — Giles Custerson is the strongest next connection. Land governance from the UK side, direct overlap with Sacred Valley coordination.",
+    scoped:"Giles is your strongest next connection. Same governance layer, different geography — a natural bridge.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>Giles is your strongest next connection — land governance from the UK, strong overlap.</div>
+    <div class="sc gr"><div class="sc-row"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:50%;background:#3C3489;color:#CECBF6;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0">NH</div><div><div class="sc-t">Nick Hadfield</div><div class="sc-s">Invited you</div></div></div><span class="pill pg">Connected</span></div></div>
+    <div class="sc hl"><div class="sc-row"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:50%;background:#0F6E56;color:#9FE1CB;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0">GC</div><div><div class="sc-t">Giles Custerson</div><div class="sc-s">Land governance · UK · Founding</div></div></div></div><button class="ab" onclick="sendChipMessage('Introduce me to Giles')">Ask Rizz to introduce us</button></div>
+    <div class="sc ds"><div class="sc-t" style="color:rgba(255,255,255,.38)"><i class="ti ti-user-plus" style="margin-right:4px"></i>Complete your story to unlock better matches</div><button class="ab" onclick="sendChipMessage('Tell Rizz about me')">Tell Rizz about me</button></div>`},
+  membership:{icon:'ti-id-badge',title:'Membership',pill:null,sb:'sb-membership',
+    conjure:"You're on founding tier — full access is active. Your stake and role are still pending though. Want to lock those in?",
+    scoped:"Founding access is live. Setting your stake unlocks governance rights and bounty weighting.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>Founding member access is active. Stake setup unlocks governance rights.</div>
+    <div class="g2"><div class="sm"><div class="sm-l">Tier</div><div class="sm-v" style="font-size:13px;color:#AFA9EC">Founding</div></div><div class="sm"><div class="sm-l">Status</div><div class="sm-v" style="font-size:13px;color:#5DCAA5">Active</div></div></div>
+    <div class="sc"><div class="sc-t" style="margin-bottom:6px">Onboarding progress</div>
+    <div class="lrow"><span class="ln">Profile verified</span><span class="ld" style="color:#5DCAA5">✓</span></div>
+    <div class="lrow"><span class="ln">Story shared</span><span class="ld">Pending</span></div>
+    <div class="lrow"><span class="ln">Stake set</span><span class="ld">Pending</span></div>
+    <div class="lrow"><span class="ln">First call joined</span><span class="ld" id="step-call-status">Pending</span></div>
+    <div class="lrow"><span class="ln">Tools connected</span><span class="ld">Pending</span></div></div>
+    <div class="sc ds"><div class="sc-t" style="color:rgba(255,255,255,.38)">Stake & governance rights</div><div class="sc-s" style="margin-top:3px">Set your stake to unlock voting, bounty weighting and governance</div><button class="ab">Set stake</button></div>`},
+  knowledge:{icon:'ti-brain',title:'My Rizz',pill:'pill-knowledge',sb:'sb-knowledge',
+    conjure:"Here's your Rizz setup. The more you tell me, the smarter the matching gets. Story and skills are the key gaps right now.",
+    scoped:"Your story and skills are the biggest gaps. Filling those unlocks better bounties, introductions, and matching.",
+    html:`<div class="rctx"><i class="ti ti-sparkles"></i>Complete your Rizz profile for smarter matching, personalised bounties and better introductions.</div>
+    <div class="api-row"><div class="api-ic api-done"><i class="ti ti-check"></i></div><div class="api-info"><div class="api-t">Name & location</div><div class="api-s">Joseph · Sacred Valley</div></div><span class="api-done-lbl">Done</span></div>
+    <div class="api-row"><div class="api-ic api-pend"><i class="ti ti-file-text"></i></div><div class="api-info"><div class="api-t">Your story</div><div class="api-s">What you're building and why</div></div><button class="api-btn" onclick="sendChipMessage('Help me write my story')">Add</button></div>
+    <div class="api-row"><div class="api-ic api-pend"><i class="ti ti-tool"></i></div><div class="api-info"><div class="api-t">Skills & tools</div><div class="api-s">What you bring to the community</div></div><button class="api-btn" onclick="sendChipMessage('Help me list my skills')">Add</button></div>
+    <div class="api-row"><div class="api-ic api-opt"><i class="ti ti-wallet"></i></div><div class="api-info"><div class="api-t">Wallet</div><div class="api-s">Connect for bounties & stake</div></div><button class="api-btn">Connect</button></div>
+    <div class="api-row"><div class="api-ic api-opt"><i class="ti ti-brand-slack"></i></div><div class="api-info"><div class="api-t">Slack</div><div class="api-s">Sync your workspace</div></div><button class="api-btn">Connect</button></div>
+    <div class="api-row"><div class="api-ic api-opt"><i class="ti ti-calendar"></i></div><div class="api-info"><div class="api-t">Calendar</div><div class="api-s">Auto-RSVP relevant calls</div></div><button class="api-btn">Connect</button></div>`}
+};
+
+let currentSection = null, rightFrameOpen = true;
+
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('callComplete') === '1') {
+    const steps = document.querySelectorAll('.step-item');
+    if (steps[3]) {
+      const dot = steps[3].querySelector('.step-dot');
+      const text = steps[3].querySelector('.step-text');
+      if (dot) { dot.classList.remove('active'); dot.classList.add('done'); dot.innerHTML = '<i class="ti ti-check" style="font-size:7px"></i>'; }
+      if (text) { text.classList.remove('active'); text.classList.add('done'); }
+    }
+    const callStatus = document.getElementById('step-call-status');
+    if (callStatus) { callStatus.textContent = '✓ Completed'; callStatus.style.color = '#5DCAA5'; }
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+})();
+
+async function go(section) {
+  const d = SECTIONS[section]; if (!d) return;
+  if (currentSection === section) { back(); return; }
+  if (currentRoom) closeRoom();
+
+  const rc = document.getElementById('rizz-center');
+  const arm = document.getElementById('wave-arm');
+  const glow = document.getElementById('avatar-glow');
+  arm.style.animation = 'wave-fast .35s ease-in-out 4';
+  glow.style.animation = 'gi-conjure 1.1s ease-out,bob-conjure .9s ease-out';
+
+  document.querySelectorAll('.cpill').forEach(e => e.classList.remove('active-pill'));
+  document.querySelectorAll('.sb-item').forEach(e => e.classList.remove('active-link', 'earned'));
+  document.querySelectorAll('.hint').forEach(e => e.classList.remove('active'));
+  if (d.pill) document.getElementById(d.pill)?.classList.add('active-pill');
+  if (d.sb) document.getElementById(d.sb)?.classList.add('active-link');
+  document.querySelectorAll('.hint').forEach(e => {
+    const t = e.textContent.trim().toLowerCase();
+    if (t.includes(section) || (section === 'knowledge' && t.includes('rizz'))) e.classList.add('active');
+  });
+
+  await sleep(220);
+  addMasterMsg(d.conjure, 'rizz');
+  masterHistory.push({ role: 'assistant', content: d.conjure });
+
+  await sleep(320);
+  const panel = document.getElementById('section-panel');
+  panel.innerHTML = `
+    <div class="sp-nav">
+      <div class="sp-title"><i class="ti ${d.icon}"></i>${d.title}</div>
+      <button class="sp-back" onclick="back()"><i class="ti ti-arrow-left" style="font-size:10px"></i>Back</button>
+    </div>
+    <div class="sp-scroll">${d.html}</div>
+    <div class="section-log" id="log-${section}"></div>`;
+  panel.classList.add('open');
+  currentSection = section;
+
+  arm.style.animation = 'wave 1.2s ease-in-out infinite';
+  glow.style.animation = 'gi 3s ease-in-out infinite,bob 2.8s ease-in-out infinite';
+  rc.classList.add('compact');
+  document.getElementById('master-banner').classList.add('show');
+  document.getElementById('pill-back').style.display = 'inline-flex';
+
+  await sleep(550);
+  addSectionMsg(section, d.scoped);
+}
+
+function back() {
+  const panel = document.getElementById('section-panel');
+  panel.classList.remove('open');
+  setTimeout(() => { if (!panel.classList.contains('open')) panel.innerHTML = ''; }, 420);
+  document.getElementById('rizz-center').classList.remove('compact');
+  document.getElementById('master-banner').classList.remove('show');
+  document.getElementById('pill-back').style.display = 'none';
+  document.querySelectorAll('.cpill').forEach(e => e.classList.remove('active-pill'));
+  document.querySelectorAll('.sb-item').forEach(e => e.classList.remove('active-link', 'earned'));
+  document.querySelectorAll('.hint').forEach(e => e.classList.remove('active'));
+  currentSection = null;
+}
+
+function earnedHighlight(key) {
+  const d = SECTIONS[key]; if (!d || key === currentSection) return;
+  const el = document.getElementById(d.sb);
+  if (el) { el.classList.add('earned'); setTimeout(() => el.classList.remove('earned'), 4000); }
+}
+
+function addMasterMsg(text, type, suggestions = []) {
+  const stream = document.getElementById('message-area');
+  const g = document.createElement('div');
+  const id = msgCounter++;
+
+  if (type === 'user') {
+    g.className = 'user-row';
+    g.dataset.msgId = id;
+    const b = document.createElement('div');
+    b.className = 'user-bubble';
+    b.textContent = text;
+    g.appendChild(b);
+  } else {
+    g.className = 'message-group';
+    g.dataset.msgId = id;
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    b.textContent = text;
+    g.appendChild(b);
+    if (suggestions.length) {
+      const chips = document.createElement('div');
+      chips.className = 'message-chips';
+      suggestions.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'chip';
+        btn.textContent = typeof s === 'string' ? s : s.text;
+        btn.onclick = () => sendChipMessage(btn.textContent);
+        chips.appendChild(btn);
+      });
+      g.appendChild(chips);
+    }
+  }
+
+  fullHistory.push({ id, role: type === 'user' ? 'you' : 'rizz', text, section: currentSection, ts: new Date() });
+
+  const newMsgs = stream.querySelectorAll('[data-msg-id]:not([data-msg-id="0"])');
+  const toHideCount = newMsgs.length >= MSG_VISIBLE ? newMsgs.length - MSG_VISIBLE : 0;
+  if (toHideCount > 0) {
+    newMsgs.forEach((el, i) => { if (i < toHideCount) el.style.display = 'none'; });
+    const pill = document.getElementById('history-pill');
+    if (pill) {
+      pill.style.display = 'flex';
+      const hidden = stream.querySelectorAll('[data-msg-id][style*="display: none"]').length;
+      const label = document.getElementById('history-pill-label');
+      if (label) label.textContent = `${hidden} earlier message${hidden !== 1 ? 's' : ''} — tap to view`;
+    }
+  }
+
+  stream.appendChild(g);
+  stream.scrollTop = stream.scrollHeight;
+  if (type === 'rizz') speakText(text);
+  return g;
+}
+
+function addSectionMsg(section, text) {
+  const log = document.getElementById(`log-${section}`);
+  if (!log) return;
+  const short = text.length > 80 ? text.slice(0, 77).trimEnd() + '…' : text;
+  const el = document.createElement('div');
+  el.className = 'sc-log-entry';
+  el.innerHTML = `<i class="ti ti-sparkles"></i><span>${short}</span>`;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+}
+
+function openHistoryDrawer() {
+  const drawer = document.getElementById('history-drawer');
+  const scroll = document.getElementById('history-scroll');
+  if (!drawer || !scroll) return;
+  scroll.innerHTML = '';
+  fullHistory.forEach(entry => {
+    const el = document.createElement('div');
+    el.className = 'history-entry';
+    const who = document.createElement('div');
+    who.className = 'history-entry-who' + (entry.role === 'you' ? ' you' : '');
+    who.textContent = entry.role === 'you' ? 'You' : 'Rizz';
+    const txt = document.createElement('div');
+    txt.className = 'history-entry-text';
+    txt.textContent = entry.text;
+    el.appendChild(who); el.appendChild(txt);
+    if (entry.section && SECTIONS[entry.section]) {
+      const tag = document.createElement('div');
+      tag.className = 'history-section-tag';
+      tag.textContent = `in ${SECTIONS[entry.section].title}`;
+      el.appendChild(tag);
+    }
+    scroll.appendChild(el);
+  });
+  drawer.classList.add('open');
+  scroll.scrollTop = scroll.scrollHeight;
+}
+
+function closeHistoryDrawer() {
+  document.getElementById('history-drawer')?.classList.remove('open');
+}
+
+function saveHistory() {
+  try {
+    const lines = fullHistory.map(e => {
+      const time = e.ts.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const sec = e.section && SECTIONS[e.section] ? ` [${SECTIONS[e.section].title}]` : '';
+      return `[${time}]${sec} ${e.role === 'you' ? 'You' : 'Rizz'}: ${e.text}`;
+    });
+    const blob = new Blob([lines.join('\n\n')], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'rizz-conversation.txt';
+    a.click();
+  } catch (error) {
+    console.error('Failed to save history:', error);
+  }
+}
+
+function showTyping() {
+  const area = document.getElementById('message-area');
+  const el = document.createElement('div'); el.className = 'message-group'; el.id = 'typing-ind';
+  el.innerHTML = '<div class="bubble" style="color:rgba(255,255,255,.28);font-style:italic">Rizz is thinking…</div>';
+  area.appendChild(el); area.scrollTop = area.scrollHeight;
+}
+
+async function sendInitialGreeting() {
+  if (window.location.search.includes('verified=true')) return;
+  try {
+    const res = await fetch('/api/rizz/context?invite_id=joseph-onboarding');
+    const data = await res.json();
+    const name = data.name || 'Joseph';
+    const greetingBody = data.rizzContext || "Nick's told me great things. Let's first get your email so we can verify you and get started.";
+    addMasterMsg(`Welcome ${name} — ${greetingBody}`, 'rizz');
+    awaitEmailForAuth = true;
+  } catch (e) {
+    addMasterMsg("Welcome Joseph — Nick's told me great things. Let's first get your email so we can verify you and get started.", 'rizz');
+    awaitEmailForAuth = true;
+  }
+}
+
+async function startAuthFlow() {
+  awaitEmailForAuth = true;
+  const inp = document.getElementById('main-input');
+  inp.placeholder = 'Enter your email...';
+  inp.focus();
+}
+
+async function sendEmailForAuth(email) {
+  awaitEmailForAuth = false;
+  const inp = document.getElementById('main-input');
+  inp.placeholder = 'Reply to Rizz...';
+  inp.value = '';
+  addMasterMsg(email, 'user');
+  masterHistory.push({ role: 'user', content: email });
+  const blurred = email.split('@')[0][0] + '••••@' + email.split('@')[1];
+  userEmail = email;
+  const confirmationMsg = `Great — I've sent a magic link to ${blurred}. Check your inbox (and spam) and click to verify. We'll pick up right where we left off.`;
+  addMasterMsg(confirmationMsg, 'rizz');
+  masterHistory.push({ role: 'assistant', content: confirmationMsg });
+  fetch('/api/auth/send-magic-link', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  }).catch(() => {});
+  const steps = document.querySelectorAll('.pi');
+  if (steps[2]) {
+    const dot = steps[2].querySelector('.pd');
+    const text = steps[2].querySelector('.pt-off, .pt-act, .pt-done');
+    if (dot) dot.className = 'pd act';
+    if (text) { text.className = 'pt-act'; text.textContent = 'Email sent'; }
+  }
+}
+
+async function sendMsg() {
+  const inp = document.getElementById('main-input');
+  const text = inp.value.trim(); if (!text) return; inp.value = '';
+  if (awaitEmailForAuth) { await sendEmailForAuth(text); return; }
+  await processMessage(text);
+}
+
+async function sendChipMessage(text) {
+  if (text === 'Join the call') { window.location.href = CALL_URL; return; }
+  await processMessage(text);
+}
+
+async function processMessage(text) {
+  if (!authTriggeredThisSession) {
+    authTriggeredThisSession = true;
+    masterHistory.push({ role: 'user', content: text });
+    addMasterMsg(text, 'user');
+    startAuthFlow();
+    return;
+  }
+  addMasterMsg(text, 'user');
+  masterHistory.push({ role: 'user', content: text });
+  showTyping();
+  try {
+    const r = await fetch('/api/chat?invite_id=joseph-onboarding', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: masterHistory.slice(-12), section: currentSection || 'general', queryText: text })
+    });
+    const data = await r.json();
+    document.getElementById('typing-ind')?.remove();
+    let txt = data.content || data.message || "I'm here — what's on your mind?";
+    let sugs = data.suggestions || [];
+    if (typeof txt === 'string' && txt.startsWith('{')) { try { const p = JSON.parse(txt); txt = p.content || txt; sugs = p.suggestions || sugs; } catch {} }
+    addMasterMsg(txt, 'rizz', sugs);
+    masterHistory.push({ role: 'assistant', content: txt });
+    if (currentSection) addSectionMsg(currentSection, txt);
+    Object.keys(SECTIONS).forEach(k => { if (txt.toLowerCase().includes(SECTIONS[k].title.toLowerCase()) && k !== currentSection) earnedHighlight(k); });
+    try { if (userEmail) await saveConversationHistory(userEmail); } catch (e) {}
+  } catch (e) {
+    document.getElementById('typing-ind')?.remove();
+    const fb = ["I'm with you — keep going.", "Got it. Want to explore a section?", "Interesting — tell me more."];
+    const reply = fb[Math.floor(Math.random() * fb.length)];
+    addMasterMsg(reply, 'rizz');
+    masterHistory.push({ role: 'assistant', content: reply });
+    if (currentSection) addSectionMsg(currentSection, reply);
+  }
+}
+
+function toggleFrameRight() {
+  const fr = document.getElementById('ipadRightFrame'), ic = document.getElementById('frameRightIcon');
+  rightFrameOpen = !rightFrameOpen; fr.classList.toggle('collapsed', !rightFrameOpen);
+  ic.className = rightFrameOpen ? 'ti ti-chevron-right' : 'ti ti-chevron-left';
+}
+
+function toggleVoice() {
+  voiceEnabled = !voiceEnabled;
+  localStorage.setItem('rizzVoice', voiceEnabled);
+  updateVoiceButton();
+}
+
+function updateVoiceButton() {
+  const btn = document.getElementById('voice-toggle');
+  if (voiceEnabled) { btn.classList.add('active'); btn.querySelector('i').className = 'ti ti-speaker'; }
+  else { btn.classList.remove('active'); btn.querySelector('i').className = 'ti ti-speaker-off'; }
+}
+
+function speakText(text) {
+  if (!voiceEnabled) return;
+  fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) })
+    .then(r => r.ok ? r.blob() : Promise.reject())
+    .then(blob => { const a = document.getElementById('audioPlayer'); a.src = URL.createObjectURL(blob); a.play(); })
+    .catch(() => {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(text);
+        utt.rate = 0.93; utt.pitch = 1.05;
+        const voices = speechSynthesis.getVoices();
+        const pick = voices.find(v => /Samantha|Karen|Daniel|EN-GB|EN-US/.test(v.name));
+        if (pick) utt.voice = pick;
+        speechSynthesis.speak(utt);
+      }
+    });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function saveConversationHistory(email) {
+  if (!email) return;
+  await fetch('/api/auth/save-history', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, messages: masterHistory })
+  });
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+  if (window.location.search.includes('verified=true')) {
+    authTriggeredThisSession = true;
+    const chatEl = document.getElementById('message-area');
+    if (chatEl) chatEl.innerHTML = '';
+    setTimeout(async () => {
+      const email = new URLSearchParams(window.location.search).get('email');
+      if (email) {
+        userEmail = email;
+        try {
+          const res = await fetch(`/api/auth/get-history?email=${encodeURIComponent(email)}`);
+          const data = await res.json();
+          if (data.messages?.length) masterHistory = data.messages;
+        } catch (e) {}
+      }
+      const verifiedName = new URLSearchParams(window.location.search).get('name') || 'Joseph';
+      addMasterMsg(
+        `Welcome back ${verifiedName} — we've confirmed your email. What can I help you with?`,
+        'rizz',
+        ["see details of today's call with Nick", "tour the onboarding hub", "talk about your projects"]
+      );
+      setTimeout(() => {
+        const chips = document.querySelectorAll('.message-chips .chip');
+        chips.forEach(chip => {
+          if (chip.textContent.includes("see details of today's call")) {
+            chip.onclick = () => addMasterMsg(
+              `Here's today's call with Nick:\n\n📅 ${TODAYS_CALL_TIME}\n\nClick the link below to join — see you in there 👋\n\nhttps://onboarding-launch-v2.vercel.app/v2/room/meeting-temp-1-fixed`,
+              'rizz', ['Join the call']
+            );
+          }
+          if (chip.textContent.includes("talk about your projects")) {
+            chip.onclick = () => {
+              addMasterMsg("Your projects", 'user');
+              addMasterMsg(
+                "You've got three rooms open — CatastroIntel, Amadena Terra, and your offer/needs rooms. Each has a dedicated space where we can go deep. Which one's most alive for you right now?",
+                'rizz',
+                ['Open CatastroIntel', 'Open Amadena Terra', 'Open What I offer']
+              );
+              setTimeout(() => {
+                document.querySelectorAll('.message-chips .chip').forEach(c => {
+                  if (c.textContent === 'Open CatastroIntel') c.onclick = () => openRoom('catastro');
+                  if (c.textContent === 'Open Amadena Terra') c.onclick = () => openRoom('amadena');
+                  if (c.textContent === 'Open What I offer') c.onclick = () => openRoom('offer');
+                });
+              }, 100);
+            };
+          }
+        });
+      }, 100);
+    }, 800);
+  } else {
+    sendInitialGreeting();
+  }
+});
+
+updateVoiceButton();
+</script>
+</body>
+</html>
