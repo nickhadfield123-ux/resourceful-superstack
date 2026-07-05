@@ -56,6 +56,7 @@ This is the near-term build sequence. It doesn't yet cover longer-term plans (vi
 ## Important context
 
 - onboardingv5 and superuser-v3 are static HTML pages — they work fully as standalone pages right now, but aren't yet connected to the app's shared state, auth, or data layer the way the Next.js app routes are.
+- **RizzCodeDashboard at /cockpit/rizz-code currently shows a graceful error state** — it depends on `/api/git/*` endpoints that don't exist yet. This is known future work (API routes for git-integration), not a broken feature from this consolidation.
 - This repo is expected to be a stepping stone: real product build work will likely happen here initially, then get forked into a new repo for the actual first MVP release.
 - Do not assume this repo is the final production codebase — check with Nick before treating anything here as permanent architecture.
 
