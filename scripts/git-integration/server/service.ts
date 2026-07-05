@@ -7,7 +7,7 @@ import {
   ProjectContext, 
   RizzCodeContext,
   GitIntegrationConfig 
-} from '../types'
+} from '@/lib/git-integration/types'
 
 export class GitService {
   private monitor: GitMonitor

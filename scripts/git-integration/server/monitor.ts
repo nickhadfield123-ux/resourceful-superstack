@@ -11,7 +11,7 @@ import {
   ProjectContext, 
   RizzCodeContext,
   GitIntegrationConfig 
-} from '../types'
+} from '@/lib/git-integration/types'
 
 export class GitMonitor {
   private config: GitIntegrationConfig

@@ -2,7 +2,7 @@ import { watch } from 'chokidar'
 import * as fs from 'fs'
 import * as path from 'path'
 import { GitMonitor } from './server/monitor'
-import { ProjectContext } from './types'
+import type { ProjectContext } from '@/lib/git-integration/types'
 import { useGitIntegrationStore } from '@/stores/gitIntegrationStore'
 
 export interface ProjectChange {
