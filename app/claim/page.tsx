@@ -196,7 +196,7 @@ export default function ClaimPage() {
       const balance = await contract.balanceOf(address);
       const nftTokens: NFTToken[] = [];
 
-      for (let i = 0n; i < balance; i++) {
+      for (let i = BigInt(0); i < balance; i++) {
         const tokenId = await contract.tokenOfOwnerByIndex(address, i);
         const tokenURI = await contract.tokenURI(tokenId);
         const claimed = await contract.hasClaimed(tokenId);
