@@ -27,6 +27,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dexie": "^4.0.0",
+    "ethers": "^6.17.0",
     "groq-sdk": "^0.3.3",
     "jotai": "^2.9.0",
     "jotai-family": "^1.0.2",
