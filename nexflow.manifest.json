@@ -1,0 +1,2918 @@
+{
+  "schema": "nexflow-manifest-v1",
+  "generatedAt": "2026-06-17T19:50:00.858Z",
+  "generatedBy": "NexFlow Foundation Engagement",
+  "stats": {
+    "totalPages": 201,
+    "repos": [
+      "resourceful-cockpit",
+      "onboarding-launch-v2",
+      "resourceful-v2"
+    ],
+    "pagesWithTitles": 143,
+    "pagesWithApis": 38
+  },
+  "pages": [
+    {
+      "route": "/admin",
+      "repo": "resourceful-cockpit",
+      "file": "app/admin/page.tsx",
+      "title": "Admin Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 8871
+    },
+    {
+      "route": "/auth",
+      "repo": "resourceful-cockpit",
+      "file": "app/auth/page.tsx",
+      "title": "Welcome to RIZZ",
+      "apis": [],
+      "imports": [
+        "../../lib/ory/AuthContext",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 9537
+    },
+    {
+      "route": "/buy",
+      "repo": "resourceful-cockpit",
+      "file": "app/buy/page.tsx",
+      "title": "Purchase Options",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 9156
+    },
+    {
+      "route": "/call/[roomId]",
+      "repo": "resourceful-cockpit",
+      "file": "app/call/[roomId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 700
+    },
+    {
+      "route": "/claim",
+      "repo": "resourceful-cockpit",
+      "file": "app/claim/page.tsx",
+      "title": "Claim Your RSF Tokens",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 19464
+    },
+    {
+      "route": "/cockpit/business/bounties",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/business/bounties/page.tsx",
+      "title": "Bounty Board",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 12330
+    },
+    {
+      "route": "/cockpit/business/matches",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/business/matches/page.tsx",
+      "title": "Network Matches",
+      "apis": [
+        "/api/network/contacts?${params.toString()}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 17465
+    },
+    {
+      "route": "/cockpit/business",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/business/page.tsx",
+      "title": "Business Overview",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/business/types"
+      ],
+      "sizeBytes": 20544
+    },
+    {
+      "route": "/cockpit/business/referrals",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/business/referrals/page.tsx",
+      "title": "My Referrals",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 14212
+    },
+    {
+      "route": "/cockpit/business/work",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/business/work/page.tsx",
+      "title": "Active Work",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 12407
+    },
+    {
+      "route": "/cockpit/calendar",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/calendar/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/textarea",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/hooks/useDailyCall",
+        "@/components/cockpit/MeetingCalendar",
+        "@/lib/meetings/service",
+        "@/lib/meetings/types",
+        "@/toast"
+      ],
+      "sizeBytes": 13770
+    },
+    {
+      "route": "/cockpit/chat",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/chat/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text",
+        "/api/ai/kb-analyze",
+        "/api/kb/store",
+        "/api/ai/vision",
+        "/api/kb/store-strategic"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/ai/groq-service",
+        "@/components/ui/alert-dialog",
+        "@/components/cockpit/ConversationToKBModal",
+        "@/components/cockpit/ConversationPersistenceTest",
+        "@/stores/intelligenceStore",
+        "@/toast",
+        "@/components/cockpit/AudioContextModal"
+      ],
+      "sizeBytes": 76831
+    },
+    {
+      "route": "/cockpit/core-intelligence",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/core-intelligence/page.tsx",
+      "title": "⚡ Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/textarea",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13321
+    },
+    {
+      "route": "/cockpit/family",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/family/page.tsx",
+      "title": "Family",
+      "apis": [
+        "/api/network/contacts?limit=500"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 18679
+    },
+    {
+      "route": "/cockpit/fitness",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/fitness/page.tsx",
+      "title": "Fitness & Wellness",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 30530
+    },
+    {
+      "route": "/cockpit/hub-v2",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/hub-v2/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12179
+    },
+    {
+      "route": "/cockpit/hub",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/hub/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12179
+    },
+    {
+      "route": "/cockpit/hub/post-call/[meetingId]",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/hub/post-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PostCallPageClient"
+      ],
+      "sizeBytes": 554
+    },
+    {
+      "route": "/cockpit/hub/pre-call/[meetingId]",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/hub/pre-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PreCallPageClient"
+      ],
+      "sizeBytes": 320
+    },
+    {
+      "route": "/cockpit/hub/test-pre-call",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/hub/test-pre-call/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 2969
+    },
+    {
+      "route": "/cockpit/intelligence",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/intelligence/page.tsx",
+      "title": "🧠 Intelligence Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13884
+    },
+    {
+      "route": "/cockpit/knowledge",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/cockpit/lembongan",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/lembongan/page.tsx",
+      "title": "Lembongan Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7825
+    },
+    {
+      "route": "/cockpit/london",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/london/page.tsx",
+      "title": "London Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7788
+    },
+    {
+      "route": "/cockpit/malvern",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/malvern/page.tsx",
+      "title": "Malvern Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 9545
+    },
+    {
+      "route": "/cockpit/membership",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/membership/page.tsx",
+      "title": "Membership Program",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/cockpit/CrossmintNFTPurchase",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 6904
+    },
+    {
+      "route": "/cockpit/mode-test",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/mode-test/page.tsx",
+      "title": "🤖 Mode System Test",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/components/cockpit/ModeSelector"
+      ],
+      "sizeBytes": 8546
+    },
+    {
+      "route": "/cockpit/morzine",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/morzine/page.tsx",
+      "title": "Morzine Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7771
+    },
+    {
+      "route": "/cockpit/network",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/network/page.tsx",
+      "title": "Network",
+      "apis": [
+        "/api/network/contacts?${params}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 23775
+    },
+    {
+      "route": "/cockpit/overview",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/overview/page.tsx",
+      "title": "Good morning, Nick 👋",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 6267
+    },
+    {
+      "route": "/cockpit",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 611
+    },
+    {
+      "route": "/cockpit/rizz-code",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/rizz-code/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/cockpit/RizzCodeDashboard"
+      ],
+      "sizeBytes": 217
+    },
+    {
+      "route": "/cockpit/sacred-valley",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/sacred-valley/page.tsx",
+      "title": "Sacred Valley Hub",
+      "apis": [
+        "/api/venues?hub=Sacred Valley",
+        "/api/venues",
+        "/api/venues?id=${selectedVenue.id}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/locations"
+      ],
+      "sizeBytes": 36587
+    },
+    {
+      "route": "/cockpit/settings",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/settings/page.tsx",
+      "title": "⚙️ Settings",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/components/cockpit/DatabaseTest"
+      ],
+      "sizeBytes": 7740
+    },
+    {
+      "route": "/cockpit/status",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/status/page.tsx",
+      "title": "📊 System Status",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/lib/ai/cost-tracking"
+      ],
+      "sizeBytes": 12080
+    },
+    {
+      "route": "/cockpit/travel",
+      "repo": "resourceful-cockpit",
+      "file": "app/cockpit/travel/page.tsx",
+      "title": "Travel",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ],
+      "sizeBytes": 33298
+    },
+    {
+      "route": "/dashboard",
+      "repo": "resourceful-cockpit",
+      "file": "app/dashboard/page.tsx",
+      "title": "Dashboard",
+      "apis": [],
+      "imports": [
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 2003
+    },
+    {
+      "route": "/demo",
+      "repo": "resourceful-cockpit",
+      "file": "app/demo/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/tokens/mint"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 27998
+    },
+    {
+      "route": "/hub",
+      "repo": "resourceful-cockpit",
+      "file": "app/hub/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 10670
+    },
+    {
+      "route": "/intelligence",
+      "repo": "resourceful-cockpit",
+      "file": "app/intelligence/page.tsx",
+      "title": "Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/textarea",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/intelligence/IntelligenceSidebar",
+        "@/components/intelligence/PromptEditor",
+        "@/stores/intelligenceStore"
+      ],
+      "sizeBytes": 16268
+    },
+    {
+      "route": "/join/[token]/call",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/call/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 14550
+    },
+    {
+      "route": "/join/[token]/hub",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/hub/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/hooks/useAuth",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/card",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 41145
+    },
+    {
+      "route": "/join/[token]",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/page.tsx",
+      "title": "Invitation Error",
+      "apis": [
+        "/api/meeting-invites/${token}"
+      ],
+      "imports": [
+        "@/toast",
+        "@/lib/user-context/use-user-context",
+        "@/lib/user-context/auth-guard",
+        "@/lib/user-context/types",
+        "./_components/InviteHero",
+        "./_components/AuthForm",
+        "@/components/cockpit/RizzIntelligencePanel"
+      ],
+      "sizeBytes": 6163
+    },
+    {
+      "route": "/join/[token]/pre-call",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/pre-call/page.tsx",
+      "title": "Pre-Call Lobby",
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}",
+        "/api/daily/room"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 13995
+    },
+    {
+      "route": "/join/[token]/summary",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/summary/page.tsx",
+      "title": "Meeting Complete",
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}",
+        "/api/meeting-summaries?meeting_invite_id=${inviteData.id}"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 17373
+    },
+    {
+      "route": "/join/[token]/wallet",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/[token]/wallet/page.tsx",
+      "title": "Wallet Details",
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 4529
+    },
+    {
+      "route": "/join",
+      "repo": "resourceful-cockpit",
+      "file": "app/join/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 478
+    },
+    {
+      "route": "/knowledge",
+      "repo": "resourceful-cockpit",
+      "file": "app/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/login",
+      "repo": "resourceful-cockpit",
+      "file": "app/login/page.tsx",
+      "title": "Sign In to Resourceful",
+      "apis": [],
+      "imports": [
+        "@/lib/ory"
+      ],
+      "sizeBytes": 2960
+    },
+    {
+      "route": "/memberships",
+      "repo": "resourceful-cockpit",
+      "file": "app/memberships/page.tsx",
+      "title": "Join Resourceful - Choose Your Membership",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 12344
+    },
+    {
+      "route": "/",
+      "repo": "resourceful-cockpit",
+      "file": "app/page.tsx",
+      "title": "Build with RIZZ",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button"
+      ],
+      "sizeBytes": 7928
+    },
+    {
+      "route": "/signup",
+      "repo": "resourceful-cockpit",
+      "file": "app/signup/page.tsx",
+      "title": "Join Resourceful",
+      "apis": [
+        "/api/auth/create-wallet"
+      ],
+      "imports": [
+        "@/lib/ory"
+      ],
+      "sizeBytes": 4229
+    },
+    {
+      "route": "/test-auth",
+      "repo": "resourceful-cockpit",
+      "file": "app/test-auth/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/lib/ory/AuthContext",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 6064
+    },
+    {
+      "route": "/test-flow",
+      "repo": "resourceful-cockpit",
+      "file": "app/test-flow/page.tsx",
+      "title": "Resourceful Flow Test",
+      "apis": [
+        "/api/system/start-node",
+        "/api/system/deploy-contracts",
+        "/api/tokens/mint"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/scroll-area",
+        "@/components/cockpit/Step2Progress"
+      ],
+      "sizeBytes": 62441
+    },
+    {
+      "route": "/test-rizz-context",
+      "repo": "resourceful-cockpit",
+      "file": "app/test-rizz-context/page.tsx",
+      "title": "Rizz Context Test",
+      "apis": [],
+      "imports": [
+        "@/components/RizzChat",
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 8103
+    },
+    {
+      "route": "/testV2/business/bounties",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/business/bounties/page.tsx",
+      "title": "Bounty Board",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 12330
+    },
+    {
+      "route": "/testV2/business/matches",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/business/matches/page.tsx",
+      "title": "Network Matches",
+      "apis": [
+        "/api/network/contacts?${params.toString()}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 17465
+    },
+    {
+      "route": "/testV2/business",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/business/page.tsx",
+      "title": "Business Overview",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/business/types"
+      ],
+      "sizeBytes": 20540
+    },
+    {
+      "route": "/testV2/business/referrals",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/business/referrals/page.tsx",
+      "title": "My Referrals",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 14212
+    },
+    {
+      "route": "/testV2/business/work",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/business/work/page.tsx",
+      "title": "Active Work",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 12407
+    },
+    {
+      "route": "/testV2/calendar",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/calendar/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/textarea",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/hooks/useDailyCall",
+        "@/components/testV2/MeetingCalendar",
+        "@/lib/meetings/service",
+        "@/lib/meetings/types",
+        "@/toast"
+      ],
+      "sizeBytes": 13769
+    },
+    {
+      "route": "/testV2/chat",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/chat/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text",
+        "/api/ai/kb-analyze",
+        "/api/kb/store",
+        "/api/ai/vision",
+        "/api/kb/store-strategic"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/ai/groq-service",
+        "@/components/ui/alert-dialog",
+        "@/components/testV2/ConversationToKBModal",
+        "@/components/testV2/ConversationPersistenceTest",
+        "@/stores/intelligenceStore",
+        "@/toast",
+        "@/components/testV2/AudioContextModal"
+      ],
+      "sizeBytes": 76824
+    },
+    {
+      "route": "/testV2/core-intelligence",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/core-intelligence/page.tsx",
+      "title": "⚡ Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/textarea",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13321
+    },
+    {
+      "route": "/testV2/family",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/family/page.tsx",
+      "title": "Family",
+      "apis": [
+        "/api/network/contacts?limit=500"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 18679
+    },
+    {
+      "route": "/testV2/fitness",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/fitness/page.tsx",
+      "title": "Fitness & Wellness",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 30530
+    },
+    {
+      "route": "/testV2/hub-v2",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/hub-v2/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12177
+    },
+    {
+      "route": "/testV2/hub",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/hub/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12177
+    },
+    {
+      "route": "/testV2/hub/post-call/[meetingId]",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/hub/post-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PostCallPageClient"
+      ],
+      "sizeBytes": 554
+    },
+    {
+      "route": "/testV2/hub/pre-call/[meetingId]",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/hub/pre-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PreCallPageClient"
+      ],
+      "sizeBytes": 320
+    },
+    {
+      "route": "/testV2/hub/test-pre-call",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/hub/test-pre-call/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 2966
+    },
+    {
+      "route": "/testV2/intelligence",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/intelligence/page.tsx",
+      "title": "🧠 Intelligence Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13877
+    },
+    {
+      "route": "/testV2/knowledge",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/testV2/lembongan",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/lembongan/page.tsx",
+      "title": "Lembongan Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7825
+    },
+    {
+      "route": "/testV2/london",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/london/page.tsx",
+      "title": "London Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7788
+    },
+    {
+      "route": "/testV2/malvern",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/malvern/page.tsx",
+      "title": "Malvern Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 9545
+    },
+    {
+      "route": "/testV2/membership",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/membership/page.tsx",
+      "title": "Membership Program",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/testV2/CrossmintNFTPurchase",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 6903
+    },
+    {
+      "route": "/testV2/mode-test",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/mode-test/page.tsx",
+      "title": "🤖 Mode System Test",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/components/testV2/ModeSelector"
+      ],
+      "sizeBytes": 8545
+    },
+    {
+      "route": "/testV2/morzine",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/morzine/page.tsx",
+      "title": "Morzine Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7771
+    },
+    {
+      "route": "/testV2/network",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/network/page.tsx",
+      "title": "Network",
+      "apis": [
+        "/api/network/contacts?${params}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 23775
+    },
+    {
+      "route": "/testV2/overview",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/overview/page.tsx",
+      "title": "Good morning, Nick 👋",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 6267
+    },
+    {
+      "route": "/testV2",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 609
+    },
+    {
+      "route": "/testV2/rizz-code",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/rizz-code/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/testV2/RizzCodeDashboard"
+      ],
+      "sizeBytes": 216
+    },
+    {
+      "route": "/testV2/sacred-valley",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/sacred-valley/page.tsx",
+      "title": "Sacred Valley Hub",
+      "apis": [
+        "/api/venues?hub=Sacred Valley",
+        "/api/venues",
+        "/api/venues?id=${selectedVenue.id}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/locations"
+      ],
+      "sizeBytes": 36587
+    },
+    {
+      "route": "/testV2/settings",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/settings/page.tsx",
+      "title": "⚙️ Settings",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/components/testV2/DatabaseTest"
+      ],
+      "sizeBytes": 7739
+    },
+    {
+      "route": "/testV2/status",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/status/page.tsx",
+      "title": "📊 System Status",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/lib/ai/cost-tracking"
+      ],
+      "sizeBytes": 12080
+    },
+    {
+      "route": "/testV2/travel",
+      "repo": "resourceful-cockpit",
+      "file": "app/testV2/travel/page.tsx",
+      "title": "Travel",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ],
+      "sizeBytes": 33298
+    },
+    {
+      "route": "/testonboarding1",
+      "repo": "resourceful-cockpit",
+      "file": "app/testonboarding1/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [
+        "../../src/components/RizzChat"
+      ],
+      "sizeBytes": 5637
+    },
+    {
+      "route": "/testonboardinghub",
+      "repo": "resourceful-cockpit",
+      "file": "app/testonboardinghub/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "../../components/hub/Header",
+        "../../components/hub/LeftPanel",
+        "../../components/hub/CenterPanel",
+        "../../components/hub/RightPanel",
+        "../../components/hub/MobileBottomNav"
+      ],
+      "sizeBytes": 4657
+    },
+    {
+      "route": "/",
+      "repo": "onboarding-launch-v2",
+      "file": "app/page.tsx",
+      "title": "To get started, edit the page.tsx file.",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 2882
+    },
+    {
+      "route": "/superuser",
+      "repo": "onboarding-launch-v2",
+      "file": "app/superuser/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 12195
+    },
+    {
+      "route": "/v2/room/[id]",
+      "repo": "onboarding-launch-v2",
+      "file": "app/v2/room/[id]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/shell/PlatformFrame",
+        "@/components/shell",
+        "@/components/cockpit/PreCallPage",
+        "@/components/cockpit/PostCallPage",
+        "../../../call-tv/[roomId]/CallTVClient",
+        "@/lib/meetings/types",
+        "@/lib/utils"
+      ],
+      "sizeBytes": 4316
+    },
+    {
+      "route": "/admin",
+      "repo": "resourceful-v2",
+      "file": "app/admin/page.tsx",
+      "title": "Admin Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 8871
+    },
+    {
+      "route": "/auth",
+      "repo": "resourceful-v2",
+      "file": "app/auth/page.tsx",
+      "title": "Welcome to RIZZ",
+      "apis": [],
+      "imports": [
+        "../../lib/ory/AuthContext",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 9537
+    },
+    {
+      "route": "/buy",
+      "repo": "resourceful-v2",
+      "file": "app/buy/page.tsx",
+      "title": "Purchase Options",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 9156
+    },
+    {
+      "route": "/call-tv/[roomId]",
+      "repo": "resourceful-v2",
+      "file": "app/call-tv/[roomId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 699
+    },
+    {
+      "route": "/call/[roomId]",
+      "repo": "resourceful-v2",
+      "file": "app/call/[roomId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 700
+    },
+    {
+      "route": "/claim",
+      "repo": "resourceful-v2",
+      "file": "app/claim/page.tsx",
+      "title": "Claim Your RSF Tokens",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 19464
+    },
+    {
+      "route": "/cockpit/business/bounties",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/business/bounties/page.tsx",
+      "title": "Bounty Board",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 12330
+    },
+    {
+      "route": "/cockpit/business/matches",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/business/matches/page.tsx",
+      "title": "Network Matches",
+      "apis": [
+        "/api/network/contacts?${params.toString()}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 17465
+    },
+    {
+      "route": "/cockpit/business",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/business/page.tsx",
+      "title": "Business Overview",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/business/types"
+      ],
+      "sizeBytes": 20544
+    },
+    {
+      "route": "/cockpit/business/referrals",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/business/referrals/page.tsx",
+      "title": "My Referrals",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 14212
+    },
+    {
+      "route": "/cockpit/business/work",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/business/work/page.tsx",
+      "title": "Active Work",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 12407
+    },
+    {
+      "route": "/cockpit/calendar",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/calendar/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/textarea",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/hooks/useDailyCall",
+        "@/components/cockpit/MeetingCalendar",
+        "@/lib/meetings/service",
+        "@/lib/meetings/types",
+        "@/toast"
+      ],
+      "sizeBytes": 13770
+    },
+    {
+      "route": "/cockpit/chat",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/chat/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text",
+        "/api/ai/kb-analyze",
+        "/api/kb/store",
+        "/api/ai/vision",
+        "/api/kb/store-strategic"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/ai/groq-service",
+        "@/components/ui/alert-dialog",
+        "@/components/cockpit/ConversationToKBModal",
+        "@/components/cockpit/ConversationPersistenceTest",
+        "@/stores/intelligenceStore",
+        "@/toast",
+        "@/components/cockpit/AudioContextModal"
+      ],
+      "sizeBytes": 76831
+    },
+    {
+      "route": "/cockpit/core-intelligence",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/core-intelligence/page.tsx",
+      "title": "⚡ Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/textarea",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13321
+    },
+    {
+      "route": "/cockpit/family",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/family/page.tsx",
+      "title": "Family",
+      "apis": [
+        "/api/network/contacts?limit=500"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 18679
+    },
+    {
+      "route": "/cockpit/fitness",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/fitness/page.tsx",
+      "title": "Fitness & Wellness",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 30530
+    },
+    {
+      "route": "/cockpit/hub-v2",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/hub-v2/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12179
+    },
+    {
+      "route": "/cockpit/hub",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/hub/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12179
+    },
+    {
+      "route": "/cockpit/hub/post-call/[meetingId]",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/hub/post-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PostCallPageClient"
+      ],
+      "sizeBytes": 554
+    },
+    {
+      "route": "/cockpit/hub/pre-call/[meetingId]",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/hub/pre-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PreCallPageClient"
+      ],
+      "sizeBytes": 320
+    },
+    {
+      "route": "/cockpit/hub/test-pre-call",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/hub/test-pre-call/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 2969
+    },
+    {
+      "route": "/cockpit/intelligence",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/intelligence/page.tsx",
+      "title": "🧠 Intelligence Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13884
+    },
+    {
+      "route": "/cockpit/knowledge",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/cockpit/lembongan",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/lembongan/page.tsx",
+      "title": "Lembongan Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7825
+    },
+    {
+      "route": "/cockpit/london",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/london/page.tsx",
+      "title": "London Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7788
+    },
+    {
+      "route": "/cockpit/malvern",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/malvern/page.tsx",
+      "title": "Malvern Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 9545
+    },
+    {
+      "route": "/cockpit/membership",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/membership/page.tsx",
+      "title": "Membership Program",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/cockpit/CrossmintNFTPurchase",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 6904
+    },
+    {
+      "route": "/cockpit/mode-test",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/mode-test/page.tsx",
+      "title": "🤖 Mode System Test",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/components/cockpit/ModeSelector"
+      ],
+      "sizeBytes": 8546
+    },
+    {
+      "route": "/cockpit/morzine",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/morzine/page.tsx",
+      "title": "Morzine Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7771
+    },
+    {
+      "route": "/cockpit/network",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/network/page.tsx",
+      "title": "Network",
+      "apis": [
+        "/api/network/contacts?${params}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 23775
+    },
+    {
+      "route": "/cockpit/overview",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/overview/page.tsx",
+      "title": "Good morning, Nick 👋",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 6267
+    },
+    {
+      "route": "/cockpit",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 611
+    },
+    {
+      "route": "/cockpit/rizz-code",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/rizz-code/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/cockpit/RizzCodeDashboard"
+      ],
+      "sizeBytes": 217
+    },
+    {
+      "route": "/cockpit/sacred-valley",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/sacred-valley/page.tsx",
+      "title": "Sacred Valley Hub",
+      "apis": [
+        "/api/venues?hub=Sacred Valley",
+        "/api/venues",
+        "/api/venues?id=${selectedVenue.id}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/locations"
+      ],
+      "sizeBytes": 36587
+    },
+    {
+      "route": "/cockpit/settings",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/settings/page.tsx",
+      "title": "⚙️ Settings",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/components/cockpit/DatabaseTest"
+      ],
+      "sizeBytes": 7740
+    },
+    {
+      "route": "/cockpit/status",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/status/page.tsx",
+      "title": "📊 System Status",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/lib/ai/cost-tracking"
+      ],
+      "sizeBytes": 12080
+    },
+    {
+      "route": "/cockpit/travel",
+      "repo": "resourceful-v2",
+      "file": "app/cockpit/travel/page.tsx",
+      "title": "Travel",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ],
+      "sizeBytes": 33298
+    },
+    {
+      "route": "/dashboard-demo",
+      "repo": "resourceful-v2",
+      "file": "app/dashboard-demo/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/layout",
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 7496
+    },
+    {
+      "route": "/dashboard",
+      "repo": "resourceful-v2",
+      "file": "app/dashboard/page.tsx",
+      "title": "Dashboard",
+      "apis": [],
+      "imports": [
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 2003
+    },
+    {
+      "route": "/demo",
+      "repo": "resourceful-v2",
+      "file": "app/demo/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/tokens/mint"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 27998
+    },
+    {
+      "route": "/github-join-ui-demo",
+      "repo": "resourceful-v2",
+      "file": "app/github-join-ui-demo/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 2693
+    },
+    {
+      "route": "/github-original-join",
+      "repo": "resourceful-v2",
+      "file": "app/github-original-join/page.tsx",
+      "title": "Invitation Error",
+      "apis": [
+        "/api/meeting-invites/${token}"
+      ],
+      "imports": [
+        "@/toast",
+        "@/lib/user-context/use-user-context",
+        "@/lib/user-context/auth-guard",
+        "@/lib/user-context/types",
+        "./_components/InviteHero",
+        "./_components/AuthForm",
+        "@/components/cockpit/RizzIntelligencePanel"
+      ],
+      "sizeBytes": 6163
+    },
+    {
+      "route": "/github-original-join/test123",
+      "repo": "resourceful-v2",
+      "file": "app/github-original-join/test123/page.tsx",
+      "title": "Invitation Error",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/lib/user-context/use-user-context",
+        "@/lib/user-context/auth-guard",
+        "@/lib/user-context/types",
+        "./_components/InviteHero",
+        "./_components/AuthForm",
+        "@/components/cockpit/RizzIntelligencePanel"
+      ],
+      "sizeBytes": 5976
+    },
+    {
+      "route": "/hub",
+      "repo": "resourceful-v2",
+      "file": "app/hub/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 10670
+    },
+    {
+      "route": "/intelligence",
+      "repo": "resourceful-v2",
+      "file": "app/intelligence/page.tsx",
+      "title": "Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/textarea",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/intelligence/IntelligenceSidebar",
+        "@/components/intelligence/PromptEditor",
+        "@/stores/intelligenceStore"
+      ],
+      "sizeBytes": 16268
+    },
+    {
+      "route": "/join/[token]/call",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/call/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 14550
+    },
+    {
+      "route": "/join/[token]/hub",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/hub/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/hooks/useAuth",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/card",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 41145
+    },
+    {
+      "route": "/join/[token]",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/page.tsx",
+      "title": "Invitation Error",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/lib/user-context/use-user-context",
+        "@/lib/user-context/auth-guard",
+        "@/lib/user-context/types",
+        "./_components/InviteHero",
+        "./_components/AuthForm",
+        "@/components/cockpit/RizzIntelligencePanel"
+      ],
+      "sizeBytes": 5990
+    },
+    {
+      "route": "/join/[token]/pre-call",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/pre-call/page.tsx",
+      "title": "Pre-Call Lobby",
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}",
+        "/api/daily/room"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 13995
+    },
+    {
+      "route": "/join/[token]/summary",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/summary/page.tsx",
+      "title": "Meeting Complete",
+      "apis": [
+        "/api/meeting-invites/${token}",
+        "/api/participants?meeting_invite_id=${inviteData.id}",
+        "/api/meeting-summaries?meeting_invite_id=${inviteData.id}"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 17373
+    },
+    {
+      "route": "/join/[token]/wallet",
+      "repo": "resourceful-v2",
+      "file": "app/join/[token]/wallet/page.tsx",
+      "title": "Wallet Details",
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 4529
+    },
+    {
+      "route": "/join",
+      "repo": "resourceful-v2",
+      "file": "app/join/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 478
+    },
+    {
+      "route": "/knowledge",
+      "repo": "resourceful-v2",
+      "file": "app/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/login",
+      "repo": "resourceful-v2",
+      "file": "app/login/page.tsx",
+      "title": "Sign In to Resourceful",
+      "apis": [],
+      "imports": [
+        "@/lib/ory"
+      ],
+      "sizeBytes": 2960
+    },
+    {
+      "route": "/memberships",
+      "repo": "resourceful-v2",
+      "file": "app/memberships/page.tsx",
+      "title": "Join Resourceful - Choose Your Membership",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 12344
+    },
+    {
+      "route": "/onboarding/choice",
+      "repo": "resourceful-v2",
+      "file": "app/onboarding/choice/page.tsx",
+      "title": "Welcome to Resourceful!",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 8861
+    },
+    {
+      "route": "/onboarding/jordan",
+      "repo": "resourceful-v2",
+      "file": "app/onboarding/jordan/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 39036
+    },
+    {
+      "route": "/onboarding/personalize",
+      "repo": "resourceful-v2",
+      "file": "app/onboarding/personalize/page.tsx",
+      "title": "Let's Personalize Your Experience",
+      "apis": [],
+      "imports": [
+        "@/components/layout",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ],
+      "sizeBytes": 9036
+    },
+    {
+      "route": "/",
+      "repo": "resourceful-v2",
+      "file": "app/page.tsx",
+      "title": "Build with RIZZ",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button"
+      ],
+      "sizeBytes": 7928
+    },
+    {
+      "route": "/platform-demo",
+      "repo": "resourceful-v2",
+      "file": "app/platform-demo/page.tsx",
+      "title": "Welcome Back",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 8453
+    },
+    {
+      "route": "/prototype/jordan-phases",
+      "repo": "resourceful-v2",
+      "file": "app/prototype/jordan-phases/page.tsx",
+      "title": "Jordan · Integration Phases",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 40669
+    },
+    {
+      "route": "/prototype/jordan",
+      "repo": "resourceful-v2",
+      "file": "app/prototype/jordan/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 39036
+    },
+    {
+      "route": "/prototype/jordantest1",
+      "repo": "resourceful-v2",
+      "file": "app/prototype/jordantest1/page.tsx",
+      "title": "Jordan's Clarity Hub",
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 15592
+    },
+    {
+      "route": "/scrollable-demo",
+      "repo": "resourceful-v2",
+      "file": "app/scrollable-demo/page.tsx",
+      "title": "Your Resourceful Onboarding Hub",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 42375
+    },
+    {
+      "route": "/signup",
+      "repo": "resourceful-v2",
+      "file": "app/signup/page.tsx",
+      "title": "Join Resourceful",
+      "apis": [
+        "/api/auth/create-wallet"
+      ],
+      "imports": [
+        "@/lib/ory"
+      ],
+      "sizeBytes": 4229
+    },
+    {
+      "route": "/simple-demo",
+      "repo": "resourceful-v2",
+      "file": "app/simple-demo/page.tsx",
+      "title": "Welcome to Resourceful",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 5155
+    },
+    {
+      "route": "/test-auth",
+      "repo": "resourceful-v2",
+      "file": "app/test-auth/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/lib/ory/AuthContext",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/toast"
+      ],
+      "sizeBytes": 6064
+    },
+    {
+      "route": "/test-flow",
+      "repo": "resourceful-v2",
+      "file": "app/test-flow/page.tsx",
+      "title": "Resourceful Flow Test",
+      "apis": [
+        "/api/system/start-node",
+        "/api/system/deploy-contracts",
+        "/api/tokens/mint"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/scroll-area",
+        "@/components/cockpit/Step2Progress"
+      ],
+      "sizeBytes": 62441
+    },
+    {
+      "route": "/test-rizz-context",
+      "repo": "resourceful-v2",
+      "file": "app/test-rizz-context/page.tsx",
+      "title": "Rizz Context Test",
+      "apis": [],
+      "imports": [
+        "@/components/RizzChat",
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 8103
+    },
+    {
+      "route": "/testV2/business/bounties",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/business/bounties/page.tsx",
+      "title": "Bounty Board",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 12330
+    },
+    {
+      "route": "/testV2/business/matches",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/business/matches/page.tsx",
+      "title": "Network Matches",
+      "apis": [
+        "/api/network/contacts?${params.toString()}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 17465
+    },
+    {
+      "route": "/testV2/business",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/business/page.tsx",
+      "title": "Business Overview",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/business/types"
+      ],
+      "sizeBytes": 20540
+    },
+    {
+      "route": "/testV2/business/referrals",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/business/referrals/page.tsx",
+      "title": "My Referrals",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 14212
+    },
+    {
+      "route": "/testV2/business/work",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/business/work/page.tsx",
+      "title": "Active Work",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 12407
+    },
+    {
+      "route": "/testV2/calendar",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/calendar/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text"
+      ],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/textarea",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/hooks/useDailyCall",
+        "@/components/testV2/MeetingCalendar",
+        "@/lib/meetings/service",
+        "@/lib/meetings/types",
+        "@/toast"
+      ],
+      "sizeBytes": 13769
+    },
+    {
+      "route": "/testV2/chat",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/chat/page.tsx",
+      "title": null,
+      "apis": [
+        "/api/ai/text",
+        "/api/ai/kb-analyze",
+        "/api/kb/store",
+        "/api/ai/vision",
+        "/api/kb/store-strategic"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/scroll-area",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/ai/groq-service",
+        "@/components/ui/alert-dialog",
+        "@/components/testV2/ConversationToKBModal",
+        "@/components/testV2/ConversationPersistenceTest",
+        "@/stores/intelligenceStore",
+        "@/toast",
+        "@/components/testV2/AudioContextModal"
+      ],
+      "sizeBytes": 76824
+    },
+    {
+      "route": "/testV2/core-intelligence",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/core-intelligence/page.tsx",
+      "title": "⚡ Core Intelligence",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/textarea",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13321
+    },
+    {
+      "route": "/testV2/family",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/family/page.tsx",
+      "title": "Family",
+      "apis": [
+        "/api/network/contacts?limit=500"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 18679
+    },
+    {
+      "route": "/testV2/fitness",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/fitness/page.tsx",
+      "title": "Fitness & Wellness",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input"
+      ],
+      "sizeBytes": 30530
+    },
+    {
+      "route": "/testV2/hub-v2",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/hub-v2/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12177
+    },
+    {
+      "route": "/testV2/hub",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/hub/page.tsx",
+      "title": "Meeting Hub",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/lib/meetings/types",
+        "@/lib/meetings/service"
+      ],
+      "sizeBytes": 12177
+    },
+    {
+      "route": "/testV2/hub/post-call/[meetingId]",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/hub/post-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PostCallPageClient"
+      ],
+      "sizeBytes": 554
+    },
+    {
+      "route": "/testV2/hub/pre-call/[meetingId]",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/hub/pre-call/[meetingId]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "./PreCallPageClient"
+      ],
+      "sizeBytes": 320
+    },
+    {
+      "route": "/testV2/hub/test-pre-call",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/hub/test-pre-call/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/ui/button",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 2966
+    },
+    {
+      "route": "/testV2/intelligence",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/intelligence/page.tsx",
+      "title": "🧠 Intelligence Dashboard",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/ai/prompts-config"
+      ],
+      "sizeBytes": 13877
+    },
+    {
+      "route": "/testV2/knowledge",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/knowledge/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/knowledge/KnowledgeDashboard"
+      ],
+      "sizeBytes": 237
+    },
+    {
+      "route": "/testV2/lembongan",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/lembongan/page.tsx",
+      "title": "Lembongan Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7825
+    },
+    {
+      "route": "/testV2/london",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/london/page.tsx",
+      "title": "London Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7788
+    },
+    {
+      "route": "/testV2/malvern",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/malvern/page.tsx",
+      "title": "Malvern Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 9545
+    },
+    {
+      "route": "/testV2/membership",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/membership/page.tsx",
+      "title": "Membership Program",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/testV2/CrossmintNFTPurchase",
+        "@/hooks/useAuth"
+      ],
+      "sizeBytes": 6903
+    },
+    {
+      "route": "/testV2/mode-test",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/mode-test/page.tsx",
+      "title": "🤖 Mode System Test",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/toast",
+        "@/components/testV2/ModeSelector"
+      ],
+      "sizeBytes": 8545
+    },
+    {
+      "route": "/testV2/morzine",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/morzine/page.tsx",
+      "title": "Morzine Hub",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/lib/db/old-supabase"
+      ],
+      "sizeBytes": 7771
+    },
+    {
+      "route": "/testV2/network",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/network/page.tsx",
+      "title": "Network",
+      "apis": [
+        "/api/network/contacts?${params}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/avatar"
+      ],
+      "sizeBytes": 23775
+    },
+    {
+      "route": "/testV2/overview",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/overview/page.tsx",
+      "title": "Good morning, Nick 👋",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 6267
+    },
+    {
+      "route": "/testV2",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 609
+    },
+    {
+      "route": "/testV2/rizz-code",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/rizz-code/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/testV2/RizzCodeDashboard"
+      ],
+      "sizeBytes": 216
+    },
+    {
+      "route": "/testV2/rizz",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/rizz/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [],
+      "sizeBytes": 45750
+    },
+    {
+      "route": "/testV2/sacred-valley",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/sacred-valley/page.tsx",
+      "title": "Sacred Valley Hub",
+      "apis": [
+        "/api/venues?hub=Sacred Valley",
+        "/api/venues",
+        "/api/venues?id=${selectedVenue.id}"
+      ],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/lib/locations"
+      ],
+      "sizeBytes": 36587
+    },
+    {
+      "route": "/testV2/settings",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/settings/page.tsx",
+      "title": "⚙️ Settings",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/switch",
+        "@/components/ui/label",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/components/testV2/DatabaseTest"
+      ],
+      "sizeBytes": 7739
+    },
+    {
+      "route": "/testV2/status",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/status/page.tsx",
+      "title": "📊 System Status",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/stores/intelligenceStore",
+        "@/lib/ai/cost-tracking"
+      ],
+      "sizeBytes": 12080
+    },
+    {
+      "route": "/testV2/travel",
+      "repo": "resourceful-v2",
+      "file": "app/testV2/travel/page.tsx",
+      "title": "Travel",
+      "apis": [],
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/input",
+        "@/components/ui/textarea"
+      ],
+      "sizeBytes": 33298
+    },
+    {
+      "route": "/testonboarding1",
+      "repo": "resourceful-v2",
+      "file": "app/testonboarding1/page.tsx",
+      "title": "Resourceful",
+      "apis": [],
+      "imports": [
+        "../../src/components/RizzChat"
+      ],
+      "sizeBytes": 5637
+    },
+    {
+      "route": "/testonboardinghub",
+      "repo": "resourceful-v2",
+      "file": "app/testonboardinghub/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "../../components/hub/Header",
+        "../../components/hub/LeftPanel",
+        "../../components/hub/CenterPanel",
+        "../../components/hub/RightPanel",
+        "../../components/hub/MobileBottomNav"
+      ],
+      "sizeBytes": 4657
+    },
+    {
+      "route": "/v2/hub-v2",
+      "repo": "resourceful-v2",
+      "file": "app/v2/hub-v2/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 30645
+    },
+    {
+      "route": "/v2/hub",
+      "repo": "resourceful-v2",
+      "file": "app/v2/hub/page.tsx",
+      "title": "Your Resourceful Onboarding Hub",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/badge",
+        "@/components/ui/card"
+      ],
+      "sizeBytes": 42375
+    },
+    {
+      "route": "/v2/join/[token]",
+      "repo": "resourceful-v2",
+      "file": "app/v2/join/[token]/page.tsx",
+      "title": "Invitation Error",
+      "apis": [],
+      "imports": [
+        "@/toast",
+        "@/lib/user-context/use-user-context",
+        "@/lib/user-context/auth-guard",
+        "@/lib/user-context/types",
+        "../_components/InviteHero",
+        "../_components/AuthForm",
+        "@/components/shell",
+        "@/components/shell/PlatformFrame"
+      ],
+      "sizeBytes": 5351
+    },
+    {
+      "route": "/v2/room/[id]",
+      "repo": "resourceful-v2",
+      "file": "app/v2/room/[id]/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/shell/PlatformFrame",
+        "@/components/shell",
+        "@/components/cockpit/PreCallPage",
+        "@/components/cockpit/PostCallPage",
+        "../../../call-tv/[roomId]/CallTVClient",
+        "@/lib/meetings/types"
+      ],
+      "sizeBytes": 3886
+    },
+    {
+      "route": "/v2/superuser-v2",
+      "repo": "resourceful-v2",
+      "file": "app/v2/superuser-v2/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/shell/PlatformFrame"
+      ],
+      "sizeBytes": 28979
+    },
+    {
+      "route": "/v2/superuser",
+      "repo": "resourceful-v2",
+      "file": "app/v2/superuser/page.tsx",
+      "title": null,
+      "apis": [],
+      "imports": [
+        "@/components/shell/PlatformFrame"
+      ],
+      "sizeBytes": 32193
+    },
+    {
+      "route": "/v2/welcome",
+      "repo": "resourceful-v2",
+      "file": "app/v2/welcome/page.tsx",
+      "title": "Welcome to Resourceful!",
+      "apis": [],
+      "imports": [
+        "@/components/shell",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge"
+      ],
+      "sizeBytes": 8421
+    }
+  ]
+}
